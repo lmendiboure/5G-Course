@@ -422,7 +422,7 @@ Now that we have seen that the APIs want to allow us to interact with the contro
 
 To be able to do this part, different commands will be useful:
 
-``console
+```console
 $ curl -X PUT http://localhost:8080/firewall/module/enable/SWITCH_ID # enable firewalling
 
 $ curl http://localhost:8080/firewall/module/status # check firewall status
