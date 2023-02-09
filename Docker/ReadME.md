@@ -165,7 +165,7 @@ We will now try to link this web application to the database it runs. The MariaD
 As an example to start this section: 1) dowload the mariabd image and run it using the following command line:
 
 ```console
-docker run -p 3306:3306 -v /var/lib/mysql_docker:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysqlAdmin --name servbd -d mariadb
+docker run -p 3306:3306 -v /var/lib/mysql_docker:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysqlAdmin --name servdb -d mariadb
 ```
 **Q.9. What does this line seem to do?**
 
@@ -182,14 +182,14 @@ We will now try to interconnect a real DB to our Web App.
 
 The database that will be used in this practical exercise can be retrieved there (you need to retrieve that!): https://drive.google.com/file/d/1BGPzQvK4YYjErqT9jwBpv2XSqyfEpOVj/view?usp=sharing
 
-Since the objective is to connect the website of the apache/PHP container to the database, it is not useful to make the database visible to clients outside the host machine or another docker container containing an application intended to exploit this database. By default, when a container is started from the mariadb image, port 3306 is open (it is "exposed"). Simply create a link (-link) between the two containers that uses this exposed port by default. Thus, the web application has access to the "bdd_geststages" database with the user "usergs" who has the password "mdpGS". These are the elements that are created when the SQL file is imported. Furthermore, the database is accessed on the host "servbd" ⇒ If you have followed the instructions, you have theoretically named the original container with this name, otherwise you must use this name as an alias in the command for launching the container.
+Since the objective is to connect the website of the apache/PHP container to the database, it is not useful to make the database visible to clients outside the host machine or another docker container containing an application intended to exploit this database. By default, when a container is started from the mariadb image, port 3306 is open (it is "exposed"). Simply create a link (-link) between the two containers that uses this exposed port by default. Thus, the web application has access to the "bdd_geststages" database with the user "usergs" who has the password "mdpGS". These are the elements that are created when the SQL file is imported. Furthermore, the database is accessed on the host "servdb" ⇒ If you have followed the instructions, you have theoretically named the original container with this name, otherwise you must use this name as an alias in the command for launching the container.
 
 Stop and delete the previously created servdb container. Create a new servdb container without port forwarding and test access from another instance of the mariadb image. (**You will have to put the sql file in the right folder !**)
 
 This could potentially be doce with a line such as this one:
 
 ```console
-docker run -it --rm --link servbd:clientmariadb mariadb bash -c 'exec mysql -h "$CLIENTMARIADB_PORT_3306_TCP_ADDR" -u root -pmysqlAdmin’
+docker run -it --rm --link servdb:clientmariadb mariadb bash -c 'exec mysql -h "$CLIENTMARIADB_PORT_3306_TCP_ADDR" -u root -pmysqlAdmin’
 ```
 
 The script for initializing the database is provided: geststages.sql. It includes all the necessary elements (creation of the database, of the user having the rights on the database, of the tables, of the constraints as well as the SQL commands for inserting the data). We can see that the Web application has access to the database "bdd_geststages" with the user "usergs" who has the password "mdpGS". At the application level, the access to the database is configured in "include/function/f_bdd.php".
@@ -201,13 +201,13 @@ Following command lives could be used:
 ```console
 mkdir /mnt/scripts
 mv  geststages.sql /mnt/scripts
-docker run -it --rm --link servbd:clientmariadb -v /mnt/scripts:/scripts mariadb bash -c 'exec mysql -h "$CLIENTMARIADB_PORT_3306_TCP_ADDR" -u root -pmysqlAdmin < /scripts/geststages.sql’
+docker run -it --rm --link servdb:clientmariadb -v /mnt/scripts:/scripts mariadb bash -c 'exec mysql -h "$CLIENTMARIADB_PORT_3306_TCP_ADDR" -u root -pmysqlAdmin < /scripts/geststages.sql’
 ```
 
 Stop and delete the Web Server previously ran in this section and launch a new one linked to the container including the database:
 
 ```console
-docker run --name servweb -d --link servbd:servmariadb -v /var/www/html_docker:/var/www/html -p 127.0.0.1:hostPort:80 XXX:stretch-apache2-php7 /usr/sbin/apache2ctl -DFOREGROUND
+docker run --name servweb -d --link servdb:servmariadb -v /var/www/html_docker:/var/www/html -p 127.0.0.1:hostPort:80 XXX:stretch-apache2-php7 /usr/sbin/apache2ctl -DFOREGROUND
 ```
 You should now be able to verify if the whole process worked in the Web Browser! For the authentication on the application, the login and the passwords are voluntarily in clear text in the database (tables "student" and "teacher"). You can test the connection with the student "benpas01" who has the password "benpas01".
 
@@ -224,5 +224,29 @@ Typically, Docker Compose allows the definition of the application architecture 
   - allowing to get a running application in a single command (docker-compose up).
 This will give us the possibility, from a single command, to create and start all the services necessary for the functioning of our application "geststages".
 
-Note that Docker Compose is provided by the Docker developers but is not included in basic package installation.
+Note that Docker Compose is provided by the Docker developers but is not included in basic package installation. You can use the following documentation to install it: https://docs.docker.com/compose/install/linux/
+
+An example of a Docker Compose File can be found there: https://github.com/OCSInventory-NG/OCSInventory-Docker-Stack/blob/master/docker-compose.yml
+
+Based on this example, you will have to use Docker Compose to deploy our getstages web app.
+
+To achieve that, you fill first have to create a folder (named for example docker-stack) with the following tree structure:
+  - a docker-compose.yml file
+  - a initSQL folder containing the previously considered DB
+  - a PHP folder containing the Web App Sources
+  
+Two containers will have to be created there within the Docker Compose file : web and servdb. As a reminder, the web application has access to the "bdd_geststages" database with the user "usergs" who has the password "mdpGS". These elements are created when the SQL file is imported.
+
+Regarding the web app:
+  1. it is based on the last image commited (including phd and apache);
+  2. The "PHP" folder will be mapped to "/var/www/html";
+  3. The "apache" service must be started (/usr/sbin/apache2ctl -DFOREGROUND).
+  
+Regarding the DB:
+  1. Based on the mariadb image
+  2. The "initSQL" folder will be mapped to /docker-entrypoint-initdb.d. The "mariadb" image provides, at the container startup, the execution of the "entrypoint.sh" file (present at the root of the container) which, in turn, loads all the scripts of the /docker-entrypoint-initdb.d directory;
+  3. A "mysqldata" volume will be provided to permanently store the data in the database (persistence);
+  4. Access to the database server must be accessible via port 3306 only by the application. This port is exposed at the image level, so there is no need to redirect to the host;
+  5. Only the password of the mysql root user needs to be set.
+
 
