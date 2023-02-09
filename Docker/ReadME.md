@@ -4,7 +4,7 @@
 
 *Note 1: To install Docker on your machine, you could use the following procedure: https://docs.docker.com/engine/install/ubuntu/.* 
 
-*Note 2; Alternatively you could also use the procedure in this `install.sh` script, but it is not guaranteed that it will work as expected...*
+*Note 2; Alternatively you could also use the procedure in this `install_docker.sh` script, but it is not guaranteed that it will work as expected...*
 
 *Note 3: You could have to use `sudo` to use the different docker commands used in this practical exercise*
 
@@ -224,7 +224,7 @@ Typically, Docker Compose allows the definition of the application architecture 
   - allowing to get a running application in a single command (docker-compose up).
 This will give us the possibility, from a single command, to create and start all the services necessary for the functioning of our application "geststages".
 
-Note that Docker Compose is provided by the Docker developers but is not included in basic package installation. You can use the following documentation to install it: https://docs.docker.com/compose/install/linux/
+Note that Docker Compose is provided by the Docker developers but is not included in basic package installation. You can use the following documentation to install it: https://docs.docker.com/compose/install/linux/. A potentially working procedure is also proposed in the `install_docker_compose.sh` file.
 
 An example of a Docker Compose File can be found there: https://github.com/OCSInventory-NG/OCSInventory-Docker-Stack/blob/master/docker-compose.yml
 
