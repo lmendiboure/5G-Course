@@ -1,0 +1,78 @@
+.large_bouton_operation a::before, .bouton_operation a, .fake_bouton
+{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    margin: -11px 2px -11px 2px;
+    content: " ";
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.icon_ajouter::before {background-image:url(../icons/ajouter.png);}
+.icon_rechercher::before {background-image:url(../icons/rechercher.png);}
+.icon_modifier {background-image:url(../icons/modifier.png);}
+.icon_supprimer {background-image:url(../icons/supprimer.png);}
+.icon_voir {background-image:url(../icons/voir.png);}
+.icon_inscrire {background-image:url(../icons/inscrire.png);}
+.icon_website {background-image:url(../icons/lien.png);}
+
+input[type="submit"], input[type="button"], .large_bouton_operation a, .bouton_operation a, .fake_bouton
+{
+    background-color: #183080;
+    border: 1px solid #0A1840;
+    border-radius: 3px;
+    color: white;
+    padding: 8px;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover, .large_bouton_operation a:hover, .bouton_operation a:hover, .fake_bouton:hover
+{
+    background-color: #3040A0;
+}
+
+.bouton_operation a, .fake_bouton
+{
+    margin: 0px;
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+}
+
+.fake_bouton
+{
+    background-size: 20px 20px;
+    width: 18px;
+    height: 18px;
+    padding: 3px;
+    margin-top: -9px;
+    margin-bottom: -9px;
+}
+
+.large_bouton_operation a::before
+{
+    margin-right: 15px;
+}
+
+.large_bouton_operation a
+{
+    text-decoration: none;
+    margin: 0px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    display: inline-block;
+}
+
+.large_bouton_operation
+{
+    margin: 20px 2px 20px 2px;
+}

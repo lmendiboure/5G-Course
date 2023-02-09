@@ -1,0 +1,200 @@
+html, body
+{
+    height: 100%;
+}
+
+body
+{
+    margin: 0px;
+    background-color: #EEE;
+    font-family: 'Courier New', verdana;
+}
+
+nav
+{
+    background-color: #222;
+    width: 290px;
+    height: 100%;
+    display: inline-block;
+    float: left;
+    color: white;
+    border-right: 5px solid #3060FF;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+nav a
+{
+    padding: 17px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-size: 1.3em;
+    white-space: nowrap;
+    height: 23px;
+}
+
+nav a.actif 
+{
+    background-color: #3050F0;
+}
+
+nav a:hover
+{
+    background-color: #404040;
+}
+
+nav  a:hover.actif
+{
+    background-color: #4060FF;
+}
+
+nav a::before
+{
+    background-position: center center;
+    background-size: 30px 30px;
+    content: " ";
+    margin: -6px 20px -6px 0px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+}
+
+nav .bottom
+{
+    position: absolute;
+    bottom: 22px;
+    left: 0px;
+    right: 0px;
+}
+
+h1 {font-size: 1.6em;}
+h2 {font-size: 1.2em;}
+
+#onglet_accueil::before {background-image:url(../icons/home.png);}
+#onglet_entreprise::before {background-image:url(../icons/entreprise.png);}
+#onglet_stagiaire::before {background-image:url(../icons/stage.png);}
+#onglet_inscrire::before {background-image:url(../icons/inscrire.png);}
+#onglet_aide::before {background-image:url(../icons/aide.png);}
+#onglet_deconnection::before {background-image:url(../icons/deconnection.png);}
+
+#icon_droite::before {background-image:url(../icons/droite.png);}
+#icon_gauche::before {background-image:url(../icons/gauche.png);}
+
+#corps
+{
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 300px;
+    right: 0px;
+    margin-top: 30px;
+}
+
+.reduit nav {width: 70px;}
+.reduit nav a span {display: none;}
+.reduit #corps {left: 75px;}
+
+header h1
+{
+    margin: 0px;
+    font-size: 2.5em;
+    
+}
+
+header
+{
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+    color: #3040A0;
+}
+
+hr
+{
+    margin: 20px 0px 20px 0px;
+    border: 0px solid black;
+    border-top: 2px solid #183080;
+}
+
+article p
+{
+    background-color: #DDD;
+    border-radius: 5px;
+    border: 1px solid #B8B8B8;
+    padding: 10px;
+    margin: 10px 5px 10px 5px;
+}
+
+article h2
+{
+    margin: 20px 35px 10px 35px;
+}
+
+#contenu
+{
+    padding: 0px 30px 30px 30px;
+}
+
+.center
+{
+    text-align: center;
+    display: block;
+}
+
+.important
+{
+    color: red;
+    font-weight: bold;
+}
+
+.deux_colonnes
+{
+    margin: auto;
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.message, .connection
+{
+    background-color: #222;
+    border-radius: 5px;
+    color: white;
+    padding: 20px 30px 20px 30px;    
+    margin: auto;
+}
+
+.message h1
+{
+    text-align: center;
+    margin-top: 5px;
+}
+
+.connection
+{
+    margin-top: 100px;
+}
+
+.information
+{
+    background-color: #CCCCFF;
+    border: 1px solid #AAAADD;
+    border-radius: 5px;
+    padding: 0px 15px 15px 15px;
+    margin: 0px 10px 10px 0px;
+}
+
+.aide
+{
+    background-color: #CCFFCC;
+    border: 1px solid #AADDAA;
+    border-radius: 3px;
+    padding: 15px;
+    text-align: center;
+}
+

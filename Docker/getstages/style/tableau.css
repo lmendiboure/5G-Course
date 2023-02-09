@@ -1,0 +1,73 @@
+.list
+{
+    width: 100%;
+}
+
+.list table
+{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.list  th, td
+{
+    margin: 0px;
+    border-radius: 3px;
+    
+}
+
+.list th
+{
+    text-decoration: none;
+    background-color: #3060FF;
+    border: 1px solid #183080;
+    color: white;
+    margin: 0px;
+    padding: 5px 12px 5px 12px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.list  th span
+{
+    display: inline-block;
+    width: -moz-calc(100% - 18px);
+    width: -webkit-calc(100% - 18px);
+    width: -o-calc(100% - 18px);
+    width: calc(100% - 18px);
+    text-align: center;
+    
+}
+
+.list th a
+{
+    text-align: center;
+    text-decoration: none;
+    background-color: #2050C0;
+    border-radius: 3px;
+    color: white;
+    border: 1px solid #1840A0;
+    padding: 0px 4px 0px 4px;
+    margin: 4px 4px 4px 4px;
+}
+
+.list  td
+{
+    background-color: #DDD;
+    border: 1px solid #BBB;
+    padding: 5px 5px 5px 5px;
+    font-size: 0.85em;
+}
+
+.list td ul
+{
+    padding: 0px 0px 0px 20px;
+    margin: 0px;
+}
+
+.nowrap
+{
+    white-space: nowrap;
+}
+
