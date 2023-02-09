@@ -249,4 +249,10 @@ Regarding the DB:
   4. Access to the database server must be accessible via port 3306 only by the application. This port is exposed at the image level, so there is no need to redirect to the host;
   5. Only the password of the mysql root user needs to be set.
 
+Using the exemple (OCSI Inventory), try to complete the DockerCompose file located in the docker-stack folder.
+
+You should then be able to lauch containers and verify that the Web App operates in an effective way (ie you should be able to connect to and to use the Web App).
+
+Note, using the `docker-compose` command line, the following command should be used to run apps: `docker-compose up -d`. Main docker commands could also be used using the docker-compose command to start/restart/stop containers. You can, for exemple si the list of running services: `docker-compose ps`. Classical docker commands could also be executed such as `docker exec -it ocsinventory-server bash `.
+
 
