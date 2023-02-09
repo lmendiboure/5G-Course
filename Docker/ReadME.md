@@ -3,8 +3,12 @@
 ## 1. A Quick Introduction to Docker
 
 *Note 1: To install Docker on your machine, you could use the following procedure: https://docs.docker.com/engine/install/ubuntu/.* 
+
 *Note 2; Alternatively you could also use the procedure in this 'install.sh' script, but it is not guaranteed that it will work as expected...*
+
 *Note 3: You could have to use 'sudo' to use the different docker commands used in this practical exercise*
+
+*Note 4: The Web Side Deployed in this pratical exercise is based on a version proposed on https://www.reseaucerta.org/*
 
 **Q1. What is Docker? What are the benefits of such an approach?**
 
