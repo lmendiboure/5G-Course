@@ -26,6 +26,7 @@ The idea is to understand what the main components are and the main differences 
     <figcaption>EPC Functions (Source: https://www.interviewbit.com/blog/lte-architecture/)</figcaption>
 </figure>
 
+
 **Q.13** Using the above image, indicate what are the main functions of the EPC? What is the role of each of these functions? (potiential source: https://www.interviewbit.com/blog/lte-architecture/) 
 
 **Q.14** What is the PCEF? The PCRF? Why Quality of Service (QoS) is an important element? (Potential source: https://yatebts.com/solutions_and_technology/lte-epc/)
@@ -40,6 +41,7 @@ The idea is to understand what the main components are and the main differences 
     <img src="https://www.3gpp.org/images/2022/08/17/5g-fig1.png" style="float: left; margin-right: 10px;">
     <figcaption>Basic 5G Architecture (Source: https://www.3gpp.org/technologies/5g-system-overview)</figcaption>
 </figure>
+
 
 **Q.16** Considering the image above, what are the main elements of the 5G architecture? What are the differences between the E-UTRAN and the NG-RAN (potential source: https://commsbrief.com/radio-access-network-ran-geran-utran-e-utran-and-ng-ran/)
 
@@ -67,6 +69,7 @@ The idea is to understand what the main components are and the main differences 
     <figcaption>Radio Protocol Stack for LTE (Source: https://www.tutorialspoint.com/lte/lte_radio_protocol_architecture.htm</figcaption>
 </figure>
 
+
 **Q.113** What are the two main planes of the LTE Radio Protocol Architecture? What is the role of each of this plane? (potential source: https://www.tutorialspoint.com/lte/lte_radio_protocol_architecture.htm)
 
 **Q.114** What are the different layers of the LTE Protocol Stack? What is the role of each of these layers (and of each of the elements of these layers)? (potential source:https://www.tutorialspoint.com/lte/lte_protocol_stack_layers.htm)
@@ -89,17 +92,37 @@ The idea is to understand what the main components are and the main differences 
     <figcaption>5G NR Channels (Source: https://devopedia.org/5g-nr-channels)</figcaption>
 </figure>
 
+
 **Q.117** What is a channel? Using the above image, explain what are the different types of channels and their role (potential complementary source: https://devopedia.org/5g-nr-channels) 
 
 **Q.118** What are the main differences between the LTE and the 5G channels? (potential sources: https://devopedia.org/5g-nr-channels)
 
-
-
 ## 2. Let's use it: Open5GS and UERANSIM
 
-**Q.21 What is Open5GS? What is UERANSIM? Why these tools need to be used together**
+
+<figure>
+    <img src="https://www.researchgate.net/publication/360714773/figure/fig3/AS:1160646276202496@1653731044010/Experimental-5G-environment-of-a-5G-mobile-network-UERANSIM-Open5GS.png" style="float: left; margin-right: 10px;">
+    <figcaption>Experimental setup considered (Source: https://devopedia.org/5g-nr-channels)</figcaption>
+</figure>
+
+
+
+**Q.21 What is Open5GS? What is UERANSIM? Why these tools need to be used together?**
+
 
 ### 2.1 Setting up virtual machines
+
+Note: These virtual machines have been proposed by Katharina Kohls (https://kkohls.org/index.html)
+
+Password for virtual machines: *5g* ; Set Keyboard to french: *setxkbmap fr*
+
+Two machines are avaibable there: 
+  - one for the Core Network (Open5GS)
+  - one for the RAN (UERANSIM)
+
+Everytime you launch the open5gs VM, you will have to launch the following script `5gs_tun_setup.sh` on Desktop. This will be required to enable internet connection for 5G users.
+
+
 
 ### 2.2 Trying a first communication
 
