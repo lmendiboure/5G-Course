@@ -18,7 +18,7 @@ The idea is to understand what the main components are and the main differences 
   </figure>
 </div>  
 
-**Q.11** Using the image above, identify the four main components that make up a 4G architecture. What is the EPS?
+**Q.11** Using the image above, identify the four main components composing a 4G architecture. What is the EPS?
 
 **Q.12** What is E-UTRAN? What is its role? (potential source: https://www.tutorialspoint.com/lte/lte_network_architecture.htm)
 
@@ -29,11 +29,11 @@ The idea is to understand what the main components are and the main differences 
 </figure>
 </div>
 
-**Q.13** Using the above image, indicate what are the main functions of the EPC? What is the role of each of these functions? (potiential source: https://www.interviewbit.com/blog/lte-architecture/) 
+**Q.13** Using the above image, indicate what are the main functions of the EPC? What is the role of each of these functions? 
+(potential source: https://www.interviewbit.com/blog/lte-architecture/) 
 
-**Q.14** What is the PCEF? The PCRF? Why Quality of Service (QoS) is an important element? (Potential source: https://yatebts.com/solutions_and_technology/lte-epc/)
-
-**Q.15** What is the role of the EPC? The role of the E-UTRAN? (potiential source: https://www.interviewbit.com/blog/lte-architecture/)
+**Q.14** What is the PCEF? The PCRF? Why Quality of Service (QoS) is an important element? 
+(potential source: https://yatebts.com/solutions_and_technology/lte-epc/)
 
 
 ### 5G Architecture
@@ -46,7 +46,10 @@ The idea is to understand what the main components are and the main differences 
 </div>
 
 
-**Q.16** Considering the image above, what are the main elements of the 5G architecture? What are the differences between the E-UTRAN and the NG-RAN (potential source: https://commsbrief.com/radio-access-network-ran-geran-utran-e-utran-and-ng-ran/)
+**Q.16** Considering the image above, what are the main elements of the 5G architecture? What are the differences between the E-UTRAN and the NG-RAN? 
+
+(potential source: https://commsbrief.com/radio-access-network-ran-geran-utran-e-utran-and-ng-ran/)
+
 <div style="text-align:center">
 <figure>
     <img src="https://www.digi.com/getattachment/Blog/post/5G-Network-Architecture/EPC-architechure3v2-1280.jpg?lang=en-US" style="float: left; margin-right: 10px;">
@@ -56,13 +59,16 @@ The idea is to understand what the main components are and the main differences 
 
 **Q.17** What are the main functions of the 5G Core? What are the main differences compared to the EPC? Why did these functions evolved as that? (potential sources: https://www.linkedin.com/pulse/discover-5g-core-network-functions-compared-4g-lte-paul-shepherd/)
 
-**Q.18** What is the 5G Service-Based Architecture (SBA)? What is the advantage of such an approach? (potential source: https://www.metaswitch.com/knowledge-center/reference/what-is-the-5g-service-based-architecture-sba)
+**Q.18** What is the 5G Service-Based Architecture (SBA)? What is the advantage of such an approach? 
+(potential source: https://www.metaswitch.com/knowledge-center/reference/what-is-the-5g-service-based-architecture-sba)
 
 **Q.19** What could be the benefits of decentralized 5G Core Functions? (potential source: https://www.digi.com/blog/post/5g-network-architecture)
 
-**Q.111** What is the different between a StandAlone (SA) and a Non-StandAlone (NSA) 5G Architecture? What are the differences between each of this solution?What are the solution the most deployed currently (NA or NSA)? (potential source: https://www.techtarget.com/searchnetworking/feature/5G-NSA-vs-SA-How-does-each-deployment-mode-differ ; potential source: https://www.counterpointresearch.com/5g-sa-core-deployments/)
+**Q.111** What is the different between a StandAlone (SA) and a Non-StandAlone (NSA) 5G Architecture? What are the differences between each of this solution? What are the solution the most deployed currently (NA or NSA)? 
+(potential source: https://www.techtarget.com/searchnetworking/feature/5G-NSA-vs-SA-How-does-each-deployment-mode-differ ; potential source: https://www.counterpointresearch.com/5g-sa-core-deployments/)
 
-**Q.112 What are the differences between the LTE Network Interfaces and the 5G Network Interfaces?** (potential sources: https://www.rfwireless-world.com/Tutorials/5G-NR-network-interfaces.html; https://www.rfwireless-world.com/Tutorials/LTE-EPC-network-interfaces.html)
+**Q.112** What are network interfaces? What are the differences between the LTE Network Interfaces and the 5G Network Interfaces? 
+(potential sources: https://www.rfwireless-world.com/Tutorials/5G-NR-network-interfaces.html; https://www.rfwireless-world.com/Tutorials/LTE-EPC-network-interfaces.html)
 
 
 ### LTE Radio Interface Protocols
@@ -74,11 +80,14 @@ The idea is to understand what the main components are and the main differences 
 </figure>
 </div>
 
-**Q.113** What are the two main planes of the LTE Radio Protocol Architecture? What is the role of each of this plane? (potential source: https://www.tutorialspoint.com/lte/lte_radio_protocol_architecture.htm)
+**Q.113** What are the two main planes of the LTE Radio Protocol Architecture? What is the role of each of these planes? 
+(potential source: https://www.tutorialspoint.com/lte/lte_radio_protocol_architecture.htm)
 
-**Q.114** What are the different layers of the LTE Protocol Stack? What is the role of each of these layers (and of each of the elements of these layers)? (potential source:https://www.tutorialspoint.com/lte/lte_protocol_stack_layers.htm)
+**Q.114** What are the different layers of the LTE Protocol Stack? What is the role of each of these layers (and of each of the elements of these layers)? 
+(potential source:https://www.tutorialspoint.com/lte/lte_protocol_stack_layers.htm)
 
-**Q.115** What is the different between the *Idle* and the *Connected* state? (potential source: https://www.rfwireless-world.com/Tutorials/LTE-Protocol-Stack.html)
+**Q.115** What is the different between the *Idle* and the *Connected* state? 
+(potential source: https://www.rfwireless-world.com/Tutorials/LTE-Protocol-Stack.html)
 
 ### 5G Radio Interface Protocols
 
@@ -89,7 +98,9 @@ The idea is to understand what the main components are and the main differences 
 </figure>
 </div>
 
-**Q.116** What are the different layers of the 5G NR Protocol Stack? What is their role? What are the differences between this protocol stack and the LTE Protocol Stack? (potential source: https://www.lteprotocol.com/2020/02/5g-protocol-stack.html)
+**Q.116** What are the different layers of the 5G NR Protocol Stack? What is their role? What are the differences between this protocol stack and the LTE Protocol Stack? 
+(potential source: https://www.lteprotocol.com/2020/02/5g-protocol-stack.html)
+
 <div style="text-align:center">
 <figure>
     <img src="https://devopedia.org/images/article/312/6917.1612249870.png" style="float: left; margin-right: 10px;">
@@ -98,9 +109,11 @@ The idea is to understand what the main components are and the main differences 
 </div>
 
 
-**Q.117** What is a channel? Using the above image, explain what are the different types of channels and their role (potential complementary source: https://devopedia.org/5g-nr-channels) 
+**Q.117** What is a channel? Using the above image, explain what are the different types of channels and their role. 
+(potential complementary source: https://devopedia.org/5g-nr-channels) 
 
-**Q.118** What are the main differences between the LTE and the 5G channels? (potential sources: https://devopedia.org/5g-nr-channels)
+**Q.118** What are the main differences between the LTE and the 5G channels? 
+(potential sources: https://devopedia.org/5g-nr-channels)
 
 ## 2. Let's use it: Open5GS and UERANSIM
 
@@ -112,22 +125,22 @@ The idea is to understand what the main components are and the main differences 
 </div>
 
 
-**Q.21 What is Open5GS? What is UERANSIM? Why these tools need to be used together?**
+**Q.21** What is Open5GS? What is UERANSIM? Why these tools need to be used together?
 
 
 ### 2.1 Setting up virtual machines
 
-Note: These virtual machines have been proposed by Katharina Kohls (https://kkohls.org/index.html)
+Note: These virtual machines have been designed and shared by Katharina Kohls (https://kkohls.org/index.html)
 
 Password for virtual machines: *5g* ; Set Keyboard to french: *setxkbmap fr*
 
-Two machines are avaibable there: 
+Two machines will be used: 
   - one for the Core Network (Open5GS)
   - one for the RAN (UERANSIM)
 
 *Note:* Everytime you launch the open5gs VM, you will have to launch the following script `5gs_tun_setup.sh` on Desktop. This will be required to enable internet connection for 5G users.
 
-*Note:* `QWERTY` -> `AZERTY` : `setxkbmap fr` in a terminal
+*Note:* `QWERTY` -> `AZERTY`: `setxkbmap fr` in a terminal
 
 ### 2.2 Trying a first communication
 
@@ -195,14 +208,14 @@ To do so, you could use the following command:
 
 `./nr-binder 10.45.0.3 ping google.com`
 
-Alternatively, you could also 
+Note that, nr-binder could also be used to execute scripts (bash, python for example) or Docker containers.
 
 
 ### 2.3 Managing users
 
-So far, we only launch a single UE already configured in the system. We will now try to see how to register new users within our core network.
+So far, we only launched a single UE already configured in the system. We will now try to see how to register new users within our core network.
 
-To verify that it is required, we will first create, within the RAN VM, a copy of the ue config file and modify the IMSI/supi (for example replacing the last 1 by a 2: 'imsi-........2'.
+To verify that it is required, we will first create, within the RAN VM, a copy of the ue config file and modify the IMSI/supi (for example replacing the last 1 by a 2: 'imsi-........2').
 
 **Q25.** If you try to launch a ue using this config file, what happens? How can you explain it?
 
@@ -210,9 +223,9 @@ We wil now try to register this user within the Core VM.
 
 To do so, we will use a new app: the WebUI.
 
-To do so, go within the `open5gs/webui` forlder and run `npm run dev`.
+To do so, within the Core VM, go within the `open5gs/webui` folder and run `npm run dev`.
 
-Then, within a browser, connect to `127.0.0.1:300` and connect using the `admin:1423` credentials.
+Then, within a browser, access to `127.0.0.1:300` and connect using the `admin:1423` credentials.
 
 **Q.26** Add this second ue to the list of subscribers of your 5G Core and show that it worked using a screenshot (of this new user connecting to your core network).
 
@@ -225,7 +238,6 @@ Then, within a browser, connect to `127.0.0.1:300` and connect using the `admin:
 **Q.28** In 5G Networks, gNb can be divided into two entities: CU and DU. What are each of them? What is the purpose of this separation?
 
 (potential source: https://www.5gworldpro.com/5g-knowledge/what-is-cu-and-du-in-5g.html)
-
 
 
 *Note:* To go further and to joinly use Docker and UERANSIM, you could see how it would be possible to launch Docker containers within your UE using the following link: https://medium.com/rahasak/5g-core-network-setup-with-open5gs-and-ueransim-cd0e77025fd7
