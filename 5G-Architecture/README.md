@@ -216,5 +216,18 @@ Then, within a browser, connect to `127.0.0.1:300` and connect using the `admin:
 
 **Q.26** Add this second ue to the list of subscribers of your 5G Core and show that it worked using a screenshot (of this new user connecting to your core network).
 
+### 2.4 Open questions
+
+**Q.27** Open5GS can support multiple slices (can be seen in the WebUI when you register users), what is Network Slicing? Also indicate which core functions are 1) common to all slices and their role and 2) which functions are specific to each of the slices?
+
+(potential source: https://www.open5gcore.org/open5gcore/network-slice-support)
+
+**Q.28** In 5G Networks, gNb can be divided into two entities: CU and DU. What are each of them? What is the purpose of this separation?
+
+(potential source: https://www.5gworldpro.com/5g-knowledge/what-is-cu-and-du-in-5g.html)
+
+
+
+*Note:* To go further and to joinly use Docker and UERANSIM, you could see how it would be possible to launch Docker containers within your UE using the following link: https://medium.com/rahasak/5g-core-network-setup-with-open5gs-and-ueransim-cd0e77025fd7
 
 
