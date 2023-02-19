@@ -173,7 +173,9 @@ $ sudo ./UERANSIM/build/nr-ue -c UERANSIM/config/open5gs-ue.yaml
 ```
 If everythink works the following line should appear: `Connection setup for PDU session[1] is successful, TU Interface [uesimtun0, 10.45.0.2] is up`.
 
-You should also be able so see within the gNb Terminal and the Core Machine that an UE is now connected
+You should also be able so see within the gNb Terminal and the Core Machine that an UE is now connected.
+
+*Note that:* If at this point in time you encouter AUTHENTICATION issues, you should directly go to next section (2.3) and then come back here.
 
 **Q22.** What is a PDU session?
 
@@ -193,6 +195,26 @@ To do so, you could use the following command:
 
 `./nr-binder 10.45.0.3 ping google.com`
 
+Alternatively, you could also 
 
-###
+
+### 2.3 Managing users
+
+So far, we only launch a single UE already configured in the system. We will now try to see how to register new users within our core network.
+
+To verify that it is required, we will first create, within the RAN VM, a copy of the ue config file and modify the IMSI/supi (for example replacing the last 1 by a 2: 'imsi-........2'.
+
+**Q25.** If you try to launch a ue using this config file, what happens? How can you explain it?
+
+We wil now try to register this user within the Core VM.
+
+To do so, we will use a new app: the WebUI.
+
+To do so, go within the `open5gs/webui` forlder and run `npm run dev`.
+
+Then, within a browser, connect to `127.0.0.1:300` and connect using the `admin:1423` credentials.
+
+**Q.26** Add this second ue to the list of subscribers of your 5G Core and show that it worked using a screenshot (of this new user connecting to your core network).
+
+
 
