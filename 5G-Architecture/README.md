@@ -138,7 +138,7 @@ Two machines will be used:
   - one for the Core Network (Open5GS)
   - one for the RAN (UERANSIM)
 
-*Note:* Everytime you launch the open5gs VM, you will have to launch the following script `5gs_tun_setup.sh` on Desktop. This will be required to enable internet connection for 5G users.
+*Note:* Everytime you launch the open5gs VM, you will have to launch the following script `5gs_tun_setup.sh` on Desktop. This will be required to enable internet connection for 5G users. Note that: you will need to launch it with *sudo* 
 
 *Note:* `QWERTY` -> `AZERTY`: `setxkbmap fr` in a terminal
 
