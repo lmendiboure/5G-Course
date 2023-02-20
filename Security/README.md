@@ -205,19 +205,19 @@ Man-in-the-Middle attacks are among the main attacks that can be carried out. AR
 
 *Smurf* attacks are a first possible type of DoS attack.
 
-**Q.16** What is the principle of these attacks?
+**Q.11** What is the principle of these attacks?
 
 (potential source: https://en.wikipedia.org/wiki/Smurf_attack)
 
 Create a Scapy command line in oscar to force alice to send ICMP requests to the broacast address 10.255.255.255 in a loop. As mentioned earlier, `sr1(IP(dst="10.0.0.1")/ICMP()/"hello")` could allow an ICMP request to be sent. 
 
-**Q.18** What are the risks of this type of attack? State the countermeasures that can be proposed against this type of attack.
+**Q.12** What are the risks of this type of attack? State the countermeasures that can be proposed against this type of attack.
 
 ### 4.2 SYN Flood
 
 The *SYN Flood* attacks are a second possible type of DoS attacks.
 
-**Q.17** What is the principle of these attacks?
+**Q.13** What is the principle of these attacks?
 (potential source: https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/)
 
 We will now try to carry out this kind of attack against alice.
@@ -230,14 +230,56 @@ p=IP(dst="...", id=1111,ttl=99)/TCP(sport=RandShort(),dport=[22,80],seq=12345,ac
 ans,unans=srloop(p,inter=0.2,retry=2,timeout=6)
 ```
 
-**Q.20** What do you think the random elements of this message (id, ttl) are for?
+**Q.14** What do you think the random elements of this message (id, ttl) are for?
 
 So, with these few lines, oscar will send to alice a packet every 0.2 seconds for 6 seconds. This is a simple example of a *SYN Flood* attack. This rapid succession of SYN requests could lead to an overload of Alice's system and could therefore make it impossible to access alice's services (for example a telnet service).
 
 ### 4.3 Ping of the Death
 
+Ping of Death* attacks are a third possible type of DoS attack.
 
+**Q.15** What is the principle behind these attacks?
 
+(potential source: https://en.wikipedia.org/wiki/Ping_of_death)
+
+If oscar wants to carry out this type of attack against alice, with Scapy, he will just have to use a command like `send(fragment(IP(dst=dip)/ICMP()/('X'*60000))`.
+
+The ICMP packet, being fragmented, can be sent, although its size is greater than the maximum size defined for this type of packet. However, reassembling this packet could disrupt the proper functioning of alice.
+
+**Q.16** What are the risks of this type of attack? Indicate the countermeasures that can be proposed against this type of attack.
+
+To answer this question, you can use the information presented in https://www.imperva.com/learn/ddos/ping-of-death/
+
+### 4.4 Overlapping Fragments
+
+**Q.17** What is the principle of these attacks? 
+
+(potential source: https://cyberhoot.com/cybrary/fragment-overlap-attack/)
+
+If oscar wanted to carry out this kind of attack against alice, he would have to create three fragments with Scapy, each using alice's IP address. 
+
+```console
+frag1=IP(dst=dstIP, id=12345, proto=1, frag=0, flags=1)/ICMP(type=8, code=0, chksum=0xdce8)
+frag2=IP(dst=dstIP, id=12345, proto=1, frag=2, flags=1)/"ABABABAB"
+frag3=IP(dst=dstIP, id=12345, proto=1, frag=1, flags=0)/"AAAAAAAABABABABACCCCCC"
+```
+
+To be able to analyze the messages received by alice, for this time, we can launch Scapy within alice machine and sniff the messages it receives thanks to the command: `a = sniff(filter='icmp')`
+
+Once this is done, Oscar can send the three fragments sequentially to alice: `sent(frag1)...`
+
+We can then stop the sniffer at alice and analyze the received data with the following commands:
+
+```console
+a.nsummary()
+a[0]
+a[1]
+a[2]
+a[3]
+```
+This should allow you to see a complete summary of the ICMP packets received by alice as well as a summary of each of these packets. The 4th packet shows alice's response and should indicate that the second fragment contains an incorrect offset (*offset*).
+
+**Q.25** State the countermeasures that can be proposed against this type of attack.
 
 ## 5. To go further
 
@@ -251,4 +293,4 @@ For your personal culture (or your entertainment?) a tool could be useful: Shoda
 **Q.** What is Shodan (https://www.shodan.io/)? How does this tool seem to work? How could it be used? What are the risks?
 
 Other tools that might interest you: Metasploit, Kali Linux 
-((if you have any questions about this, don't hesitate to ask me!)
+(if you have any questions about this, don't hesitate to ask me!)
