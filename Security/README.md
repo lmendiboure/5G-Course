@@ -143,7 +143,7 @@ Note that the gateway address of the *lana* subnet is 10.255.255.254.
 
 Another tool that will be very important in the rest of these experiments is Scapy. You can use it and run it using the following commands (inside the netkit hosts, this tool may already be installed!):
 
-``console
+```console
 git clone https://github.com/secdev/scapy.git
 cd scapy
 ./run_scapy
@@ -152,8 +152,94 @@ cd scapy
 **Q5.** What is Scapy?
 (potential source: https://scapy.net/)
 
+*Note: In order to use it for these experiments, it will have to be placed in the /lab/shared folder. This way, it will be accessible to NetKit hosts. Like any file/folder you place in this shared folder.
 
-## 4. To go further
+## 3. An example of a Man-in-the-Middle (MitM) attack: ARP Table Poisoning
+
+This is a first potential network attack. Network attacks are a first main category of attacks that can be carried out against the UE and the access network.
+
+**Q6.** What is a MitM Attack? What are the main steps of this kind of attacks?
+(potential source: https://www.imperva.com/learn/application-security/man-in-the-middle-attack-mitm/)
+
+**Q7.** Recall the purpose of an ARP table and what ARP Query and Reply are. Also indicate what could be the interest to attack these ARP tables (*ARP Spoofing/ARP Poisoning*).
+
+(potential source: https://en.wikipedia.org/wiki/ARP_spoofing)
+
+Oscar's goal here, using Scapy, is to poison alice's ARP table and pretend to be its gateway 10.255.255.254. Thus, it will receive the traffic destined to the gateway.
+
+To do this, oscar will need to send a forged ARP packet to alice every second indicating that its MAC address matches the MAC address of the gateway.
+
+To achieve this, you will need to use Scapy which allows sending and manipulating packets.
+
+For example, using Scapy in oscar's terminal, and running the following command in Scapy `sr1(IP(dst="10.0.0.1")/ICMP()/"hello")` would ping Alice and display the response.
+
+To create the line allowing this redirection, you can use different commands of Scapy, notably (*getmacbyip, Ether, ARP*).
+
+You can also use the solution proposed by https://medium.com/datadriveninvestor/arp-cache-poisoning-using-scapy-d6711ecbe112 
+
+*Note:* Beware, unlike the solution used above, the easiest way to do this is to use a `who-has` operation, with oscar pretending to be the gateway.
+
+*Note:* The most efficient solution could be for oscar to send a who-has request to alice indicating as sender IP address the IP address of Alice's gateway and not its own (i.e. Alice associates oscar's MAC address with the gateway IP)
+
+Create a command line (or multiple command lines) to poison the ARP table of alice.
+
+With a simple `ping` from alice to bob, you can verify that the poisoning of the ARP table has worked. 
+
+**Q.8** What differences do you observe (with/without poisoning)? What does this redirection correspond to? What countermeasures can be considered to fight against this kind of attacks? 
+
+(potential source: https://en.wikipedia.org/wiki/ARP_spoofing#Defenses)
+
+Man-in-the-Middle attacks are among the main attacks that can be carried out. ARP table poisoning and TCP session hijacking are some examples of these attacks. As this article (https://gizmodo.com/why-apples-huge-security-flaw-is-so-scary-1529041062) shows, many large companies, such as Apple, can be vulnerable to these types of attacks.
+
+**Q.9** What are the main types of MITM attacks and the main techniques used? In general, what countermeasures can be considered against this type of attack?
+
+(potential source: https://www.rapid7.com/fundamentals/man-in-the-middle-attacks/)
+
+## 4. Another example of attack: Denial-of-Service
+
+**Q.10** What is a Denial of Service attack? What is its objective? What is the difference with a Distributed Denial of Service Attack?
+
+(potential source: https://www.ncsc.gov.uk/collection/denial-service-dos-guidance-collection#:~:text=%22Denial%20of%20service%22%20or%20%22,frequently%20reported%20by%20the%20media)
+
+### 4.1 Smurf
+
+*Smurf* attacks are a first possible type of DoS attack.
+
+**Q.16** What is the principle of these attacks?
+
+(potential source: https://en.wikipedia.org/wiki/Smurf_attack)
+
+Create a Scapy command line in oscar to force alice to send ICMP requests to the broacast address 10.255.255.255 in a loop. As mentioned earlier, `sr1(IP(dst="10.0.0.1")/ICMP()/"hello")` could allow an ICMP request to be sent. 
+
+**Q.18** What are the risks of this type of attack? State the countermeasures that can be proposed against this type of attack.
+
+### 4.2 SYN Flood
+
+The *SYN Flood* attacks are a second possible type of DoS attacks.
+
+**Q.17** What is the principle of these attacks?
+(potential source: https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/)
+
+We will now try to carry out this kind of attack against alice.
+
+To do this, oscar simply creates a multi-layered package for alice:
+
+```console
+topt=[('Timestamp', (10,0))]
+p=IP(dst="...", id=1111,ttl=99)/TCP(sport=RandShort(),dport=[22,80],seq=12345,ack=1000,window=1000,flags=”S”,options=topt)/”SYNFlood”
+ans,unans=srloop(p,inter=0.2,retry=2,timeout=6)
+```
+
+**Q.20** What do you think the random elements of this message (id, ttl) are for?
+
+So, with these few lines, oscar will send to alice a packet every 0.2 seconds for 6 seconds. This is a simple example of a *SYN Flood* attack. This rapid succession of SYN requests could lead to an overload of Alice's system and could therefore make it impossible to access alice's services (for example a telnet service).
+
+### 4.3 Ping of the Death
+
+
+
+
+## 5. To go further
 
 Beyond the countermeasures currently implemented, many organizations are working on the definition of new solutions that could help strengthen the security of communication networks. Among the potential solutions, a technology is strongly emphasized: the Blockchain.
 
