@@ -2,7 +2,8 @@
 
 The goal of this hands-on is to understand some of the types of attacks that can occur against UE, the access network or the 5G core network.
 
-## 1. Theoretical analysis of Side-Channel Attacks
+
+## 1. Theoretical analysis of Side-Channel Attacks
 
 In this part, through a theoretical study, we will focus on the attacks that can be carried out at the level of the UE itself (hardware). More specifically, we will focus on attacks through side channels.
 
@@ -108,24 +109,56 @@ Thus, thanks to this approach, the attacker will be able (after a certain time..
 
 This attack, based on very small variations, and not linked to an error in the implementation of the encryption algorithm, is much more powerful than SPA and fault injection attacks. However, countermeasures are possible.
 
-**Q4.** Quelles contremesures pourraient être proposées contre ce genre d'attaques ?
-
-
+**Q4.** What countermeasures could be proposed against such attacks?
 
 ## 2. Environment Setup
+    
+### 2.1 Required Steps
 
-### 2.1 Installation
+You have two options for the day's practice:
+    1. Download a Virtual Machine containing the différent tools that will be required for this practise
+    2. Download the different tools required for this practise (for example within the Ubuntu VMs used during the last session!)
+    
+If you choose the first option, download this VM: https://drive.google.com/file/d/1b0oJ5-UMHXhtMqb2tG4vxp8t0dC2ZUqN/view?usp=sharing
+    
+If you choose the second option:
+    - Download the different folders required to install Netkit (Network Environment Similar to Mininet) at this address (do not take into account the fact that this project is not maintained anymore): https://www.netkit.org/
+    - Install Netkit following the different steps described there: https://www.brianlinkletter.com/2013/01/installing-netkit/ (+ check config, very important!)
+    
+Whatever the option you chose, you could also have to:
+    - `git clone https://github.com/lmendiboure/5G-Course.git` OR direction dowload *lab.tar.gz* within the Security folder
+    - Extract *lab.tar.gz* (`tar -xvzf`)
+    
+From this point in time, by simply launching the *lstart* command, at the root of the lab folder, it should be possible for you to launch the experimentation environment.
 
-Two possibilities 
+To stop it, you just have to launch in the same terminal the command *lcrash* (*lclean* to clean the config).
+The environment to be emulated here consists of a total of three hosts and two subnets (*lana*, *lanb*):
+  - alice (10.0.0.1; 10.0.0.0/8) is a vulnerable host ;
+  - bob (192.168.0.1; 192.168.0.0/24) is a second vulnerable host;
+  - oscar is a malicious user (10.0.0.2; 10.0.0.0/8).
+ 
+Note that the gateway address of the *lana* subnet is 10.255.255.254.
+ 
+### 2.2 Potentially necessary step
 
-### 2.2 Running Lab for the First Time 
+Another tool that will be very important in the rest of these experiments is Scapy. You can use it and run it using the following commands (inside the netkit hosts, this tool may already be installed!):
+
+``console
+git clone https://github.com/secdev/scapy.git
+cd scapy
+./run_scapy
+```
+
+**Q5.** What is Scapy?
+(potential source: https://scapy.net/)
+
 
 ## 4. To go further
 
 Beyond the countermeasures currently implemented, many organizations are working on the definition of new solutions that could help strengthen the security of communication networks. Among the potential solutions, a technology is strongly emphasized: the Blockchain.
 
 **Q.** Using the example of connected objects (one of the three major applications of 5G), try to understand why this technology could help strengthen security in this ecosystem
-(potential source: https://www.itransition.com/blog/blockchain-iot-security )
+(potential source: https://www.itransition.com/blog/blockchain-iot-security)
 
 For your personal culture (or your entertainment?) a tool could be useful: Shodan.
 
