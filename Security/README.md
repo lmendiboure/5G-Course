@@ -57,7 +57,7 @@ ____
 
 **Q.2** If you were an attacker, considering the above algorithm, how would you be able to guess the key to the IoT device? To avoid this problem and offer a "constant consumption" solution, whether the bit processed is a 0 or a 1, what countermeasure could you propose?
 
-To answer these questions, you can use the information presented in slides 25 and 26 in https://www.emse.fr/~nadia.el-mrabet/Presentation/Course5_SCA.pdf
+(Pontential source: https://docs.google.com/presentation/d/1oDPkvdy-NmP3_QjOjONSJRikCFUHAeI5vn8LLvKnRG0/edit?usp=sharing)
 
 ### 1.2 Fault Injection Attacks (FIA)
 
@@ -93,7 +93,7 @@ Therefore, this fault injection attack, allows to attack a system protected only
 
 **Q3.** What countermeasure could be proposed to solve this problem?
 
-To answer this question, you can use the information presented on slide 37 in https://www.emse.fr/~nadia.el-mrabet/Presentation/Course5_SCA.pdf
+(Potential source: https://docs.google.com/presentation/d/1oDPkvdy-NmP3_QjOjONSJRikCFUHAeI5vn8LLvKnRG0/edit?usp=sharing)
 
 ### 1.3 Differential Power Analysis (DPA)
 
