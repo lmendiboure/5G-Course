@@ -6,7 +6,56 @@ The report you will submit at the end of this session will represent 50% of the 
 
 Your report should be sent at: *leo.mendiboure@univ-eiffel.fr*
 
-## 1. Radio Access and Network Protocols: A Theoretical Analysis
+*Note:* For the whole work, except if a specific source is indicated, I suggest you use the following presentation in which you should be able to find the different answers to the questions. However, you are also free to find answers on other sites/sources: https://drive.google.com/file/d/1FYwdOSiN_gk_21IOZij0dzEBA9Bg-u9d/view
+
+*Note:* The answers to the questions should of course be written in English.
+
+## 1. IoT Architecture and Protocols: A Theoretical Analysis
+
+### A. IoT Architecture
+
+<div style="text-align:center">
+  <figure>
+      <img src="https://www.interviewbit.com/blog/wp-content/uploads/2022/06/Different-Layers-Of-IOT-1024x870.png" style="float: left; margin-right: 10px;">
+      <figcaption>Figure: Example of IoT Architecture
+      </figcaption>
+  </figure>
+</div> 
+
+**Q.1A1** Considering the above image, indicate what are the main elements of an IoT Architecture. What is the main role of each layer? (there, you could have to use the following source: https://www.interviewbit.com/blog/iot-architecture/)
+
+**Q.1A2** Explain the benefits of Edge Computing compared to traditional Cloud Computing architectures.
+
+### B. Radio Access Technologies for IoT
+
+**Q.1B1** Analysing slide 19, indicate: 1) the most demanding application in terms of latency, 2) in terms of battery life duration, 3) in terms of latency.
+
+**Q.1B2** Using slide 20, name some WPAN standards and some LPWAN standards. What is the difference in terms of communication distance between these solutions?
+
+**Q.1B3** Using slide 22, indicate what the number of connected objects was in 2015, what the number of connected objects will be in 2025. What are the two most used access technologies?
+
+**Q.1B4** Using slide 24, indicate which are the main unlicensed LPWAN standards. Which one has the largest communication range? The smallest?4
+
+**Q.1B5** Using slide 25, indicate which are the main licensed LPWAN standards. Which one has the highest upload rate? The lowest? The highest latency? The lowest?
+
+**Q.1B6** Using slide 26, for each application described in slide 19, indicate which LPWAN technology might be most suitable.
+
+### C. IoT Protocols
+
+**Q.1C1** Using slide 30, indicate what are the main Internet Layer protocols for IoT as well as the main application layer protocols.
+
+Note that Section 2 focus on one of the protocols identified here: MQTT.
+
+**Q.1C2** Using slide 31, explain what is theIETF 6LoWPAN protocol. According to slide 20, which IoT networks can used this protocol?
+
+### D. IoT Applications
+
+**Q.1D1** Using slide 48, indicate what are the main factors that could foster the development of the IoT.
+
+**Q.1D2** What are the main potential applications for IoT? (Slide 49 of proposed presentation)
+
+**Q.1D3** Using slide 55, cite 3 IoT technology providers for 1) sensors and connectivity, 2) gateways, 3) data platform and 4) data visualization and analytics
+
 
 
 
@@ -37,9 +86,9 @@ Various free and open-source versions of MQTT brokers and libraries (C, C++, Jav
 
   * Once this is done, start the MQTT service: `sudo service mosquitto start`
 
-**Q.2A1** Re-explain how MQTT works.
+**Q.2A1** Re-explain how MQTT works (could use slide 32). What is the format of a MQTT message? (slide 37)
 
-**Q.2A2** CoAP is another widely used protocol for connected objects (MQTT and CoAP is the two main ones). What is the difference between CoAP and MQTT?
+**Q.2A2** CoAP is another widely used protocol for connected objects (MQTT and CoAP is the two main ones). What is the difference between CoAP and MQTT? (slide 46)
 
 Now that the broker is launched, we will create in a first terminal a client that subscribes to the topic "testMQTT" and in another terminal a second client that publishes the message "Hello world !" in this topic.
 
@@ -266,9 +315,9 @@ If you have an end device (or a gateway) that you want to connect to a LoRaWAN n
   </figure>
 </div> 
 
-**Q.31** What is TTN? What could be its potential applications?
+**Q.31** What is TTN? What could be its potential applications? (need to find this information by yourself online)
 
-**Q.32** What is FIT IoT-LAB? How could it be used?
+**Q.32** What is FIT IoT-LAB? How could it be used? (need to find this information by yourself online)
 
 An implementation of such a solution is presented in this tutorial: https://www.iot-lab.info/legacy/tutorials/riot-ttn/index.html 
 
