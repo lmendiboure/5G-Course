@@ -28,17 +28,19 @@ Your report should be sent at: *leo.mendiboure@univ-eiffel.fr*
 
 ### B. Radio Access Technologies for IoT
 
-**Q.1B1** Analysing slide 19, indicate: 1) the most demanding application in terms of latency, 2) in terms of battery life duration, 3) in terms of latency.
+**Q.1B1** What are the ISM radio bands? (source: https://en.wikipedia.org/wiki/ISM_radio_band)
 
-**Q.1B2** Using slide 20, name some WPAN standards and some LPWAN standards. What is the difference in terms of communication distance between these solutions?
+**Q.1B2** Analysing slide 19, indicate: 1) the most demanding application in terms of latency, 2) in terms of battery life duration, 3) in terms of latency.
 
-**Q.1B3** Using slide 22, indicate what the number of connected objects was in 2015, what the number of connected objects will be in 2025. What are the two most used access technologies?
+**Q.1B3** Using slide 20, name some WPAN standards and some LPWAN standards. What is the difference in terms of communication distance between these solutions?
 
-**Q.1B4** Using slide 24, indicate which are the main unlicensed LPWAN standards. Which one has the largest communication range? The smallest?4
+**Q.1B4** Using slide 22, indicate what the number of connected objects was in 2015, what the number of connected objects will be in 2025. What are the two most used access technologies?
 
-**Q.1B5** Using slide 25, indicate which are the main licensed LPWAN standards. Which one has the highest upload rate? The lowest? The highest latency? The lowest?
+**Q.1B5** Using slide 24, indicate which are the main unlicensed LPWAN standards. Which one has the largest communication range? The smallest?4
 
-**Q.1B6** Using slide 26, for each application described in slide 19, indicate which LPWAN technology might be most suitable.
+**Q.1B6** Using slide 25, indicate which are the main licensed LPWAN standards. Which one has the highest upload rate? The lowest? The highest latency? The lowest?
+
+**Q.1B7** Using slide 26, for each application described in slide 19, indicate which LPWAN technology might be most suitable.
 
 ### C. IoT Protocols
 
@@ -91,6 +93,12 @@ Note that Section 2 focus on one of the protocols identified here: MQTT.
 **Q.1H2** What are the main difference between the LoRaWAN and Sigfox solutions from a business plan perspective? (source: https://learn.adafruit.com/alltheiot-transports/lora-sigfox)
 
 **Q.1H3** What are the benefits of each solution? Their limits? Which use case could be used with a Sigfox solution? A LoRaWAN solution? (source: https://learn.adafruit.com/alltheiot-transports/lora-sigfox)
+
+### I. Deployment of IoT Networks
+
+**Q.1I1** What can be the criteria for choosing IoT connectivity? (slide 121)
+
+**Q.1I2** What might be the different spectrum usage models for IoT? (slide 122)
 
 
 ## 2. Application layer Protocols: Discovering MQTT Through Experiments (1h30-2h)
