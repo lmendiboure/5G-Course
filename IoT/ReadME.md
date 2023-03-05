@@ -10,7 +10,7 @@ Your report should be sent at: *leo.mendiboure@univ-eiffel.fr*
 
 *Note:* The answers to the questions should of course be written in English.
 
-## 1. IoT Architecture and Protocols: A Theoretical Analysis
+## 1. IoT Architecture and Protocols: A Theoretical Analysis (1h30-2h)
 
 ### A. IoT Architecture
 
@@ -93,7 +93,7 @@ Note that Section 2 focus on one of the protocols identified here: MQTT.
 **Q.1H3** What are the benefits of each solution? Their limits? Which use case could be used with a Sigfox solution? A LoRaWAN solution? (source: https://learn.adafruit.com/alltheiot-transports/lora-sigfox)
 
 
-## 2. Application layer Protocols: Discovering MQTT Through Experiments
+## 2. Application layer Protocols: Discovering MQTT Through Experiments (1h30-2h)
 
 
 MQTT (Message Queuing Telemetry Transport) is a lightweight messaging protocol based on TCP/IP. It is widely used in the field of IoT for medical and home automation applications as well as for transport, logistics or security and surveillance. Among the main advantages of this protocol we can mention the scaling, the reduction of bandwidth consumption (linked to the Pub/Sub model), its bi-directional capabilities, the simplification of communications or the reduction of development time. 
@@ -338,7 +338,7 @@ topic [read|write|readwrite] <topic_name>
 
 
 
-## 3. To Go Further: Implementing End-to-End (E2e) LORAWAN Architectures
+## 3. To Go Further: Implementing End-to-End (E2e) LORAWAN Architectures (+/- 10 min)
 
 If you have an end device (or a gateway) that you want to connect to a LoRaWAN network (or even if you don't have any nodes!) open-source and free solutions exist to deploy end-to-end LoRAWAN Architectures (cf. figure below). 
 
