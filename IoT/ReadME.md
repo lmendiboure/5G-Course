@@ -1,4 +1,4 @@
-<center> <h1>IoT protocols: Analysis and Implementation</h1> </center>
+<center> <h1>Introduction to IoT</h1> </center>
 
 The idea of this session is to allow you to discover the main communication protocols used in the IoT with a focus on LoRa, LoRaWAN (theoretical analysis for both) and MQTT (simple implementation).
 
@@ -56,7 +56,41 @@ Note that Section 2 focus on one of the protocols identified here: MQTT.
 
 **Q.1D3** Using slide 55, cite 3 IoT technology providers for 1) sensors and connectivity, 2) gateways, 3) data platform and 4) data visualization and analytics
 
+### E. LoRa Technology
 
+**Q.1E1** What is the difference between LoRa and LoRaWAN? What are the main elements of a LoRaWAN Architecture? Can LoRa be used withou LoRaWAN? (slides 60, 61)
+
+**Q.1E2** What are the differences betweeen LoRaWAN specifications in Europe and North America? (slide 62)
+
+**Q.1E3** What are the main LoRaWAN Device Classes? What is the intended use of these devices? (slides 63, 64)
+
+**Q.1E4** What are the differences between these different classes in terms of reception windows? (slides 65 to 67)
+
+**Q.1E5** What is the principle of Spread-Spectrum transmission? (slides 68, 69)
+
+### F. LoRaWAN Network
+
+**Q.1F1** What are the main components of a LoRaWAN network? (slide 72)
+
+**Q.1F2** Are the MAC layers of the gateway and the node the same? Why? (slide 74)
+
+**Q.1F3** What is the difference between the message format for uplink and downlink messages? (slides 77, 78)
+
+### G. LoRaWAN Security
+
+**Q.1G1** What are the three distinct LoRaWAN AES-128 bit security keys? What is their role? (slide 80)
+
+**Q.1G2** What is the OTAA method? What is the activation scheme for this method? (slides 82, 83)
+
+**Q.1G3** Why is the ABP method less secure? (slide 84)
+
+### H. Sigfox
+
+**Q.1H1** What are the main differences between the LoRaWAN and Sigfox architectures from a technological point of view? (source: https://www.geeksforgeeks.org/difference-between-lorawan-and-sigfox/)
+
+**Q.1H2** What are the main difference between the LoRaWAN and Sigfox solutions from a business plan perspective? (source: https://learn.adafruit.com/alltheiot-transports/lora-sigfox)
+
+**Q.1H3** What are the benefits of each solution? Their limits? Which use case could be used with a Sigfox solution? A LoRaWAN solution? (source: https://learn.adafruit.com/alltheiot-transports/lora-sigfox)
 
 
 ## 2. Application layer Protocols: Discovering MQTT Through Experiments
