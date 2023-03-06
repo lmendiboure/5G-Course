@@ -30,7 +30,7 @@ Your report should be sent at: *leo.mendiboure@univ-eiffel.fr*
 
 **Q.1B1** What are the ISM radio bands? (source: https://en.wikipedia.org/wiki/ISM_radio_band)
 
-**Q.1B2** Analysing slide 19, indicate: 1) the most demanding application in terms of latency, 2) in terms of battery life duration, 3) in terms of latency.
+**Q.1B2** Analysing slide 19, indicate: 1) the most demanding application in terms of latency, 2) in terms of battery life duration, 3) in terms of data rate.
 
 **Q.1B3** Using slide 20, name some WPAN standards and some LPWAN standards. What is the difference in terms of communication distance between these solutions?
 
