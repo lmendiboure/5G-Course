@@ -63,7 +63,7 @@ In  this command line:
 
  **Q3. Explain me why it is displayed within localhost and what is nginx**
 
-### 3. Building Custom Docker Images (45 minutes)
+### 3. Building Custom Docker Images
 
 - **Step 1:** Create a directory for your Docker project.
 - **Step 2:** Create a Dockerfile with instructions to build a custom web server using NGINX. (example index.html file within this folder)
@@ -149,8 +149,9 @@ In  this command line:
   cat /data/my-file.txt
   exit
   ```
+
 **Q8. Explain me why Data Persistence is important**
----
+
 
 ## Part 2: Docker Advanced Topics 
 
@@ -276,7 +277,75 @@ In  this command line:
 
   Wait for the cluster to be up and running.
 
-### 8. Deploying Pods and Deployments Certainly, I can provide instructions for creating a Kubernetes Service and networking for an existing Nginx Deployment. Assuming you have an Nginx Deployment running, here's how you can expose it using a Kubernetes Service:
+  ### 8. Deploying Pods and Deployments (1 Hour)
+
+**Step 1:** Create a Pod.
+
+- Create a YAML file, e.g., `my-pod.yaml`, to define a simple Pod:
+
+  ```yaml
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    name: my-pod
+  spec:
+    containers:
+    - name: my-container
+      image: nginx
+  ```
+
+- Apply the Pod configuration:
+
+  ```shell
+  kubectl apply -f my-pod.yaml
+  ```
+
+**Step 2:** List Pods.
+
+- List the Pods in your cluster:
+
+  ```shell
+  kubectl get pods
+  ```
+
+**Step 3:** Create a Deployment.
+
+- Create a YAML file, e.g., `my-deployment.yaml`, to define a Deployment:
+
+  ```yaml
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: my-deployment
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: my-app
+    template:
+      metadata:
+        labels:
+          app: my-app
+      spec:
+        containers:
+        - name: my-container
+          image: nginx
+  ```
+
+- Apply the Deployment configuration:
+
+  ```shell
+  kubectl apply -f my-deployment.yaml
+  ```
+
+**Step 4:** List Deployments.
+
+- List the Deployments in your cluster:
+
+  ```shell
+  kubectl get deployments
+  ```
+
 
 ### 9. Services and Networking for Nginx Example
 
