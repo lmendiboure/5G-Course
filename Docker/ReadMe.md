@@ -28,9 +28,11 @@
 
 To check that Docker is correctly installed on your machine, you could use the following command:
 
-```console
+ 
+ ```shell
 $ docker run hello-world
 ```
+
 
 In  this command line:
   1. `docker` tells your operating system you are using the docker program
