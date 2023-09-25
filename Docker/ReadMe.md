@@ -154,7 +154,7 @@ In  this command line:
 
 ## Part 2: Docker Advanced Topics 
 
-### 5. Docker Compose (1 Hour)
+### 5. Docker Compose
 
 - **Step 1:** Install Docker Compose.
 
@@ -203,9 +203,7 @@ In  this command line:
 
 **Q9. Call me and explain what Docker Compose is and why it is important.**
 
-### 6. Docker Swarm Mode (
-
-1 Hour)
+### 6. Docker Swarm Mode
 
 - **Step 1:** Initialize a Docker Swarm.
 
