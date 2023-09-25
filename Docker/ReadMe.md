@@ -23,10 +23,9 @@
   # Example for Linux (Ubuntu)
   sudo apt-get update
   sudo apt-get install docker-ce
-
 ```
 
-To check that Docker is correctly installed on your machine, you could use the following command:
+	To check that Docker is correctly installed on your machine, you could use the following command:
 
  
  ```shell
