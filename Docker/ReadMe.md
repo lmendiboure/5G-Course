@@ -277,7 +277,9 @@ In  this command line:
 
   Wait for the cluster to be up and running.
 
-  ### 8. Deploying Pods and Deployments (1 Hour)
+ ### 8. Deploying Pods and Deployments
+
+ **Q12. Explain me what is a pod and a deployment.**
 
 **Step 1:** Create a Pod.
 
@@ -347,133 +349,9 @@ In  this command line:
   ```
 
 
-### 9. Services and Networking for Nginx Example
-
-**Step 1:** Create a Kubernetes Service for Nginx.
-
-- Define a YAML file, e.g., `nginx-service.yaml`, to create a Service for the Nginx Deployment:
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app: nginx-deployment
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: LoadBalancer
-```
-
-- Apply the Service configuration:
-
-```shell
-kubectl apply -f nginx-service.yaml
-```
-
-**Step 2:** Verify the Nginx Service.
-
-- Check the status of the Service to get the external IP (for cloud-based setups) or NodePort (for on-premises setups):
-
-```shell
-kubectl get svc nginx-service
-```
-
-- Access Nginx via the external IP (for cloud-based setups) or NodePort (for on-premises setups) using a web browser or a tool like `curl`.
-
-For cloud-based setups:
-
-```shell
-curl http://EXTERNAL_IP
-```
-
-For on-premises setups:
-
-```shell
-curl http://NODE_IP:NODE_PORT
-```
-
-By following these steps, you can expose an existing Nginx Deployment using a Kubernetes Service, making it accessible from outside the cluster.
-
-- **Step 1:** Create a Pod.
-
-  Create a Pod definition YAML file, e.g., `my-pod.yaml`, and apply it to the Minikube cluster:
-
-**Q12. What is a pod?**
-
-  ```yaml
-  apiVersion: v1
-  kind: Pod
-  metadata:
-    name: my-pod
-  spec:
-    containers:
-    - name: nginx-container
-      image: nginx
-  ```
-
-  Apply the Pod configuration:
-
-  ```shell
-  kubectl apply -f my-pod.yaml
-  ```
-
-Note that you could have to install kubectl (*minikube kubectl -- get po -A*)
-
-- **Step 2:** Verify Pod status.
-
-  Check the status of the Pod:
-
-  ```shell
-  kubectl get pods
-  ```
-**Q13. What is the difference between a pod and a deployment?**
-
-- **Step 3:** Create a Deployment.
-
-  Create a Deployment definition YAML file, e.g., `my-deployment.yaml`, and apply it to the Minikube cluster:
-
-  ```yaml
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: my-deployment
-  spec:
-    replicas: 3
-    selector:
-      matchLabels:
-        app: nginx-app
-    template:
-      metadata:
-        labels:
-          app: nginx-app
-      spec:
-        containers:
-        - name: nginx-container
-          image: nginx
-  ```
-
-  Apply the Deployment configuration:
-
-  ```shell
-  kubectl apply -f my-deployment.yaml
-  ```
-
-- **Step 4:** Verify Deployment status.
-
-  Check the status of the Deployment:
-
-  ```shell
-  kubectl get deployments
-  ```
-
-
 ### 9. Services and Networking 
 
-**Q14. What is the aim of services with Kubernetes?**
+**Q13. Explain me what are services and networking with Kubernetes.**
 
 **Step 1:** Create a Kubernetes Service for Nginx.
 
@@ -523,11 +401,10 @@ curl http://NODE_IP:NODE_PORT
 ```
 
 By following these steps, you can expose an existing Nginx Deployment using a Kubernetes Service, making it accessible from outside the cluster.
-Certainly, I'll rewrite sections 2.10 and 2.11 based on the Nginx example and integrating ConfigMaps and Secrets:
 
 ### 10. ConfigMaps and Secrets 
 
-**Q15. What is the aim of configMaps and Secrets with Kubernetes?**
+**Q14. Explain me what are configmaps and secrets.**
 
 **Step 1:** Create a ConfigMap for Nginx configuration.
 
@@ -621,7 +498,7 @@ kubectl exec -it nginx-deployment-pod -- cat /etc/nginx/ssl/ssl-cert.pem
 kubectl exec -it nginx-deployment-pod -- cat /etc/nginx/ssl/ssl-key.pem
 ```
 
-### 11. Kubernetes Dashboard 
+### 11. Kubernetes Dashboard
 
 **Step 1:** Install the Kubernetes Dashboard.
 
@@ -676,15 +553,14 @@ kubectl proxy
 
 By following these steps, you can configure ConfigMaps, Secrets, and the Kubernetes Dashboard for an existing Nginx Deployment in Kubernetes.
 
-Certainly, here's the content for sections Part 3.13 (Docker Security), Part 3.14 (Kubernetes Advanced Features), and Part 3.15 (Autoscaling and Load Balancing):
+### Part 4: Advanced Docker and Kubernetes 
 
-### Part 3: Advanced Docker and Kubernetes Topics 
 
-### 13. Docker Security 
+### 12. Docker Security 
 
 **Step 1:** Secure Docker Daemon.
 
-**Q16. What is the Docker Deamon? What is its role?**
+**Q. Explain me what is the role of the Docker Deamon.**
 
 - Restrict Docker daemon access to a specific user group:
 
@@ -701,8 +577,6 @@ sudo usermod -aG docker your_username
 ```
 
 **Step 2:** Use Docker Bench Security.
-
-**Q17. What is Docker Bench Security?**
 
 - Run Docker Bench Security to check Docker security configurations:
 
@@ -726,8 +600,6 @@ services:
     image: myapp
     isolation: hyperv
 ```
-
-**Q18. What is the role of the container isolation?**
 
 **Step 4:** Apply Least Privilege Principle.
 
@@ -755,11 +627,11 @@ docker network create --driver bridge mynetwork
 
 ---
 
-### 14. Kubernetes Advanced Features 
+### 13. Kubernetes Advanced Features 
 
 **Step 1:** Deploy StatefulSets.
 
-**Q18. What are statefulsets?**
+**Q. Explain me what are statefulsets**
 
 - Define a StatefulSet YAML for stateful applications:
 
@@ -842,9 +714,9 @@ kubectl apply -f network-policy.yaml
 
 ### 15. Autoscaling and Load Balancing 
 
-**Step 1:** Horizontal Pod Autoscaler (HPA).
+**Q. Explain me why scaling is important.**
 
-**Q19. What is the aim of the autoscaling?**
+**Step 1:** Horizontal Pod Autoscaler (HPA).
 
 - Define an HPA resource for automatic pod scaling:
 
@@ -903,11 +775,10 @@ spec:
 kubectl apply -f service.yaml
 ```
 
-Certainly, here's the global conclusion for the lab:
-
 ---
+
+These instructions cover advanced Docker and Kubernetes topics, including Docker security, Kubernetes advanced features, and autoscaling with load balancing. You can use this content in your lab materials.
 
 ### Conclusion
 
 Congratulations! You've completed the Docker and Kubernetes Advanced Topics Lab. In this hands-on session, you've delved into the intricacies of containerization and orchestration, exploring advanced concepts and practices to enhance your skills in managing and deploying containerized applications.
-
