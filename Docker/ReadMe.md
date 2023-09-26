@@ -603,17 +603,72 @@ services:
     isolation: hyperv
 ```
 
-**Step 4:** Apply Least Privilege Principle.
+**Step 4:** Apply Least Privilege Principle - Create Custom Docker Images
 
-- Create custom Docker images with minimal permissions.
+When applying the "Least Privilege Principle" to Docker, it's crucial to create custom Docker images that have minimal permissions and capabilities while still meeting your application's requirements. Here's a more detailed breakdown of this step:
 
-**Step 5:** Use Docker Content Trust (DCT).
+1. **Select a Minimal Base Image:**
+   - Start with a minimal base image for your Docker container. Consider using official images from Docker Hub, as they are usually well-maintained and have a smaller attack surface. Alpine Linux-based images are also a popular choice due to their small size.
 
-- Enable DCT for image signing and verification:
+   ```Dockerfile
+   FROM alpine:latest
+   ```
 
-```shell
-export DOCKER_CONTENT_TRUST=1
-```
+2. **Create a Non-Root User:**
+   - Avoid running processes inside the container as the root user, as it can lead to security vulnerabilities. Instead, create a non-root user and run your application as that user.
+
+   ```Dockerfile
+   RUN adduser -D myuser
+   USER myuser
+   ```
+
+3. **Limit Installed Packages:**
+   - Install only the necessary packages and libraries required for your application to function. After installation, remove any unnecessary packages to reduce the image size and potential vulnerabilities.
+
+   ```Dockerfile
+   RUN apk --no-cache add python3
+   RUN apk del .build-deps
+   ```
+
+4. **Use Multi-Stage Builds:**
+   - Multi-stage builds allow you to compile or build your application in one stage and then copy only the required artifacts to the final image. This keeps the final image small and focused on runtime requirements.
+
+   ```Dockerfile
+   # Build stage
+   FROM golang:1.16 as builder
+   WORKDIR /app
+   COPY . .
+   RUN go build -o myapp
+
+   # Final stage
+   FROM alpine:latest
+   WORKDIR /app
+   COPY --from=builder /app/myapp .
+   ```
+
+**Step 5:** Use Docker Content Trust (DCT)
+
+Docker Content Trust (DCT) is a security feature that ensures the integrity and authenticity of Docker images. It prevents the execution of untrusted or tampered images. Here's a more detailed explanation of how to use DCT:
+
+1. **Enable DCT:**
+   - To enable Docker Content Trust, set the `DOCKER_CONTENT_TRUST` environment variable to `1`. This variable tells Docker to enforce image signing and verification.
+
+   ```shell
+   export DOCKER_CONTENT_TRUST=1
+   ```
+
+2. **Sign and Verify Images:**
+   - When you build and push Docker images, you can sign them using your private key. Docker will create a digital signature for the image manifest. Only trusted images with valid signatures can be executed.
+
+   - To sign an image during the build process, use the `--sign` flag:
+
+   ```shell
+   docker build --sign myapp -t myapp:1.0 .
+   ```
+
+   - To verify the authenticity of an image before pulling and running it, Docker will check for valid signatures and compare them to trusted keys.
+
+   - You can also configure Docker to work with external notary servers for enhanced security.
 
 **Step 6:** Implement Network Segmentation.
 
