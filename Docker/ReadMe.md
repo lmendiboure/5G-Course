@@ -314,28 +314,6 @@ In  this command line:
 
 - Create a YAML file, e.g., `my-deployment.yaml`, to define a Deployment:
 
-  ```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-spec:
-  replicas: 3  # Adjust the number of replicas as needed
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:latest  # You can use a specific Nginx version if needed
-        ports:
-        - containerPort: 80
-  ```
-
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
