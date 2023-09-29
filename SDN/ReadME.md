@@ -7,9 +7,7 @@ This practical training should allow you to understand a bit more about how SDN 
   - development of new applications
   - discovery of Ryu's REST API
  
-Note that you will deploy an environment based on the Docker technology, this aims to 1) introduce you the NVF technology 2) practice docker more extensively.
-
-*Note:* To set the keyboard to "azerty" mode you can use the following command in the VM: `sudo setxkbmap fr`
+Note that you will deploy an environment based on the Docker technology, this aims to 1) introduce you the NFV technology 2) practice docker more extensively.
 
 ## 0. short theoretical introduction: What is SDN? ##
 
@@ -459,7 +457,7 @@ curl http://localhost:8080/firewall/ruless/SWITCH_ID # Display all the rules def
 
 h1 ping h2 # check that ICMP packets are received 
 
-$ wget http://X.X.X.X # check if non-ICMP packets are received (in Xterm) -Depending on the docker image, xterm commands could potentially not be executed-
+$ wget http://X.X.X.X # check if non-ICMP packets are received (in Xterm)
 ```
 **Note: By default, when the controller is launched, all links are cut. In other words, all communications are blocked**.
 
