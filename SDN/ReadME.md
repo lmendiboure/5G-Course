@@ -6,6 +6,8 @@ This practical training should allow you to understand a bit more about how SDN 
 * the use of an SDN controller: Ryu (of course, this is only one controller and many others are available on the market: ONOS, OpenDayLight, etc.);
   - development of new applications
   - discovery of Ryu's REST API
+ 
+Note that you will deploy an environment based on the Docker technology, this aims to 1) introduce you the NVF technology 2) practice docker more extensively.
 
 *Note:* To set the keyboard to "azerty" mode you can use the following command in the VM: `sudo setxkbmap fr`
 
@@ -31,11 +33,13 @@ Mininet, based on OS virtualization, is an emulator allowing to create and inter
 
 ### 1.1 Getting started
 
-*Note: You can run the command: `sudo service openvswitch-switch status` to check if the service openvswitch service is running and if necessary, start it.
+In our example, Mininet will be deployed within a docker container.
 
-To start, run mininet with the default topology, to do this use the following command in root mode:
+To do so, you can use the following docker image: https://hub.docker.com/r/iwaseyusuke/mininet/ 
 
-`sudo mn`
+You will have to pull it and run it in a custom network (**as during the first lab you will have to create a bridge network**).
+
+Once the docker will be running, you should be able to run Mininet with the following command: `mn`
 
 Once you have typed this command, you are inside the mininet shell. There are several commands that can be useful:
 
@@ -119,22 +123,24 @@ What we will do here is simply:
 
   * Tell mininet that the controller to use is not the default controller but the Ryu controller (we will simply "plug" the Ryu controller on the topology we just defined).
 
-To do this you will have to enter two command lines (in two different terminals):
+**The Ryu controller, as Mininet, will run in its own Docker Container**
 
+Therefore, you will have to use a docker image of a Ryu controller (https://hub.docker.com/r/osrg/ryu) and to run in within the same local docker network.
+
+Note that you can get the ip adress of the docker container, within this sub network, with the following command : `ip a`.
+
+Once this container is running, should should be able to launch the controller will the following command:
 ```console
-ryu run ryu/ryu/app/simple_switch_13.py # dans le terminal 1
-
-sudo mn --custom <lien vers fichier custom>.py --topo customtopo --controller remote --link tc --switch=ovsk,protocols=OpenFlow13
-
+ryu-manager ryu/ryu/app/simple_switch_13.py
 ```
 
-**Note: If you are using the VM, you may need to specify the path to the different ryu features. ryu and ryu management are in /ryu/bin. The applications are in /ryu/ryu/app.**.
+Once this is done, within the Mininet container you will have to indicate to your virtual network to use this controller: 
+
+```console
+sudo mn --custom <lien vers fichier custom>.py --topo customtopo --controller remote,ip=<IP_adress of_the_Ryu_container> --link tc --switch=ovsk,protocols=OpenFlow13
+```
 
 *Note:* The `--link tc` option should allow to specify different types of options concerning the links (bandwidth, delay, loss) and is necessary.
-
-Here the first line will allow to launch the controller, which will allow to manage the exchange of messages between the nodes of the network.
-
-The second command line will allow to indicate which file containing topologies must be used, and inside this file which topology is targeted as well as the choice of the controller: an external controller, Ryu.
 
 **Q.6-7** Now that this topology is in place, perform a test: What is the result of a `pingall`?
 
@@ -149,7 +155,6 @@ As you can see in the `ryu/ryu/app/` folder, and as we will see in the rest of t
 As you know, an SDN architecture is composed of three main layers: Application - Control - Infrastructure. The most common protocol for communication between the controller layer (SDN controllers) and the infrastructure layer (switches) is Openflow. It is a communication protocol that allows the controller to have access to the "Forwarding plane" of the switches and routers. Different versions of this protocol exist and in this tutorial, as you may have already understood, we will focus on version 1.3.
 
 ### 2.1 Return to the operation of traditional switches ###
-
 
 **Q.10** Recall the operation of traditional L2 switches (i.e. level 2 switches of the OSI model):
   * Is there a separation between the control plane and the data plane?
@@ -166,17 +171,17 @@ To do this, we're going to take two steps, first theoretical and then practical.
 
 We are now going to try to see what it can do in practice. To do this we will first need to restart a Ryu controller with a level 2 switch:
 
-`ryu run ryu/ryu/app/simple_switch_13.py`
+`ryu-manager ryu/ryu/app/simple_switch_13.py`
 
-In a second terminal we will launch the Mininet emulator with a linear topology composed of 6 switches
+We will then launch the Mininet emulator with a linear topology composed of 6 switches:
 
-`sudo mn --controller=remote --switch=ovsk,protocols=OpenFlow13 --topo=linear,6`
+`sudo mn --controller=remote,ip=<IP> --switch=ovsk,protocols=OpenFlow13 --topo=linear,6`
 
 What we want to do now is to observe the exchanges between the different switches, and between the switches and the controller.
 
-To do this we will launch Wireshark and observe the exchanges that occur locally (*loopback* interface).
+To do this we will launch Wireshark and observe the exchanges that occur between switches.
 
-**Note : Wireshark must be launched with sudo**.
+**Note : Wireshark must be launched with sudo. If it is not installed on your local machine (where it will be launched you should download it!**.
 
 Now run the pingall command.
 
@@ -194,15 +199,17 @@ By using the command line tool `ovs-ofctl` you can also supervise and manage the
 
 **Q.17** What information is used to retrieve the following commands, for example?
 
+**Note: if you want to open a second terminal on a running container, you can use the following command: `docker exec -it container-name /bin/bash`**
 
 ```console
-$ sudo ovs-vsctl show
-$ sudo ovs-ofctl -O OpenFlow13 show s1
-$ sudo ovs-ofctl -O Openflow13 dump-flows s1
+$ ovs-vsctl show
+$ ovs-ofctl -O OpenFlow13 show s1
+$ ovs-ofctl -O Openflow13 dump-flows s1
 ```
 ## 3. Ryu ##
 
 Now that we have understood how to use the Mininet emulator (creation of a virtual network) and the fundamentals of OpenFlow (type of messages exchanged, role of the controller) we will try to develop applications within the Ryu controller. We will focus on the South interface and the exchanges between controller and infrastructure and discover some of the possibilities offered by Ryu:
+  * Gui 
   * Back to the STP
   * Adding features to the controller:
     - Setting up a level 2 controller
@@ -213,6 +220,18 @@ Now that we have understood how to use the Mininet emulator (creation of a virtu
     - Firewalling
     - QoS
 
+### 3.0 Gui Topology
+
+First, to reuse commands/concepts discovered during the last lab, we will try to display the Topology Viewer Gui offered by Ryu: https://ryu.readthedocs.io/en/latest/gui.html
+
+This gui topology can be launched with the following command (**with the controller already running**) within the Ryu container: `ryu run --observe-links ryu/app/gui_topology/gui_topology.py`
+
+This Gui topology run on the port 8080. We will want to display it at: http://localhost:8080.
+
+You will therefore have to connect port 8080 of the Ryu container to port 8080 of your machine.
+
+Once this is done and once the topology is displayed within your browser call me to show me that it works.
+
 ### 3.1 Back to the Spanning Tree Protocol
 
 In the first part of this tutorial we saw that in the presence of redundancies the network could be disrupted. We are going to use here a possible application of Ryu, the Spanning Tree Protocol to solve this problem. To do this, we will again work with the topology that you defined in part 1.2.
@@ -221,13 +240,13 @@ Thus, we will :
   - in a first terminal, launch a Ryu SDN application based on the STP protocol: `ryu-manager simple_switch_stp_13.py`;
   - in a second terminal, run the mininet command to use the topology you defined in 1.2.
   
-**Note: The file simple_switch_stp_13.py is in the MOR_TP/my_apps folder! 
+**Note: The file simple_switch_stp_13.py is in the MOR_TP/my_apps folder! You can 1) use docker cp to copy that within your container or 2) install it in the container and git clone this project** 
 
-**Q.18** If you look at what the terminal in which the Ryu controller was launched displays, you can see that a number of returns are already displayed. What are they (LISTEN, BLOCK, LEARN, etc.)? Make an inventory of the status of the ports of the different switches.
+**Q.18** If you look at what the terminal in which the Ryu controller was launched, you can see that a number of returns are already displayed. What are they (LISTEN, BLOCK, LEARN, etc.)? Make an inventory of the status of the ports of the different switches.
 
-**Q.19** In Mininet, start by opening a terminal corresponding to s1 and display the list of requests exchanged on the eth2 port: `tcpdump -i s1-eth2 arp`. Now, still in mininet (but not in the xterm), try to ping h1 with h2. Wait a minute, what do you see?
+**Q.19** In the Mininet container, display the list of requests exchanged on the eth2 port of s1: `tcpdump -i s1-eth2 arp`. Now, still in mininet, try to ping h1 with h2. Wait a minute, what do you see?
 
-**Q.20** If you turn off the eth2 interface of s2 (*down*), what happens to the controller? What is the status of the ports now? What can we conclude about the STP?
+**Q.20** If you turn off the eth2 interface of s2 (*ip link set dev s1-eth2 down*), what happens to the controller? What is the status of the ports now? What can we conclude about the STP?
 
 **Q.21** If we turn eth2 back on, what happens? What can we conclude about the STP?
 
@@ -265,7 +284,7 @@ We can observe that this class is composed of three main functions, a first one 
 
 **Q.22** Using the different functions you listed in **2.2.1.**, try to understand the *PacketIn* function. What is the command you listed earlier that you find here? What is its purpose?
 
-**Q.23** Run this Ryu controller (`ryu run my_apps/basic_switch.py`) and a basic Mininet topology and observe the frames exchanged in Wireshark. If you chain pingall like you did in part **2.2**, what do you observe? How do you explain this difference? What seems to be missing in the program `basic_switch.py`?
+**Q.23** Run this Ryu controller (`ryu run my_apps/basic_switch.py`) and a basic Mininet topology and observe the frames exchanged in Wireshark. If you run pingall like you did in part **2.2**, what do you observe? How do you explain this difference? What seems to be missing in the program `basic_switch.py`?
 
 To finish this part, retrieve from the file `ryu/ryu/app/simple_switch_13.py` the missing part of the code and check that it works correctly.
 
@@ -293,7 +312,7 @@ if out_port != ofproto.OFPP_FLOOD:
        self.add_flow(datapath, 1, match, actions)
 ```
 
-As you can see below, what we are going to do is to add a new condition, if it is a packet of type IP, we are going to recover the information concerning the source and the destination
+As you can see below, what we are going to do is to add a new condition, if it is a packet of type IP, we are going to retrieve the information concerning the source and the destination
 
 ```ruby
 # check IP Protocol and create a match for IP
@@ -341,7 +360,7 @@ What you will only have to change on this line are the keywords *IP_SRC* and *IP
 
 OpenFlow has many advantages. For example, it is very easy to add new rules to modify the behavior of the switch and add new features. For instance, you could decide to duplicate all or part of the traffic destined for a port to another port, for example to "plug in" a device controlling the traffic.
 
-**Q.26** When looking at the different fields of a *FlowMod* command, which part corresponds to the instructions (see https://programmerall.com/article/60675193/)? Which field corresponds here in the addflow function?
+**Q.26** When looking at the different fields of a *FlowMod* command, which part corresponds to the instructions (see https://programmerall.com/article/60675193/)? Which field is present in the addflow function?
 
 **Q.27** Now that you have identified the field that needs to be changed, add a new rule and duplicate the traffic to host 10.0.0.3.
 
@@ -352,7 +371,7 @@ To verify that the changes you just made work:
   * In a fourth terminal, scan the TCP packets received by host 2: `sudo tcpdump -i s1-eth2`,
   * In Mininet, ping host 1 to host 2, check that the traffic is duplicated and that host 3 receives it as well.
 
-
+-- KEEP THIS PART FOR THE END OF THE SESSION --
 #### 3.2.3 Setting Level 4 Rules ####
 
 **Q.28** What is the difference between level 3 and level 4 (OSI model)? What could be the interest of setting up rules at this level?
@@ -372,13 +391,13 @@ What we will have to do here is composed of two steps:
 To achieve this, we will once again use the match documentation (https://ryu.readthedocs.io/en/latest/ofproto_v1_3_ref.html) but also the following example:
 
 ```ruby
-# Rajouter les paramètres nécessaires au match
+# Add required parameters to match
 match1 = parser.OFPMatch(eth_type=ether_types.ETH_TYPE_IP, ip_proto=in_proto.IPPROTO_TCP)
 
-# Rajouter les paramètres nécessaires à l'action
+# Add required parameters to action
 actions1 = [parser.OFPActionSetField(<INDIQUER TCP_PORT = X>),parser.OFPActionOutput(PORT_SORTIE)]
 
-# Ajouter un nouveau flot
+# Add a new flow
 self.add_flow(datapath, 1, match, actions)
 ```
 
@@ -408,7 +427,7 @@ Before moving on to more complex applications, we'll try to understand how this 
 
 We will now try to interact with these interfaces, for this we will :  
   * In a first terminal launch ryu with the application `simple_switch_rest_13.py`.
-  * in a second terminal run a basic version of Mininet (i.e. the first version run in this tp)
+  * in a second terminal run a basic version of Mininet (i.e. the first version run in this tp) (mn + controller info)
 
 Now that the environment is ready, in a third terminal type the command :
 
@@ -437,9 +456,9 @@ $ curl -X DELETE -d '{"rule_id": "X"}' http://localhost:8080/firewall/rules/SWIT
 
 curl http://localhost:8080/firewall/ruless/SWITCH_ID # Display all the rules defined at a given time (in a terminal)
 
-ping X.X.X.X # check that ICMP packets are received (in Xterm)
+h1 ping h2 # check that ICMP packets are received 
 
-$ wget http://X.X.X.X # check if non-ICMP packets are received (in Xterm)
+$ wget http://X.X.X.X # check if non-ICMP packets are received (in Xterm) -Depending on the docker image, xterm commands could potentially not be executed-
 ```
 **Note: By default, when the controller is launched, all links are cut. In other words, all communications are blocked**.
 
@@ -468,6 +487,8 @@ Now that the environment is in place, we can start using the Rest API to apply v
   - Check that they have been added to the switch rules,
   - With the commands provided, check that they work by trying to exchange between the different hosts. In the Ryu controller, what type of message can you observe when a packet is blocked?
   - Remove the rule corresponding to the prohibition of PING between h2 and h3, check that it is now possible for the two hosts to ping each other.
+
+-- This section as section section 3.2.3 will require that you do something more: you will have to changed the docker image used for --
 
 #### 3.3.3 QoS ####
 
