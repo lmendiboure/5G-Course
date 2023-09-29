@@ -35,7 +35,7 @@ Mininet, based on OS virtualization, is an emulator allowing to create and inter
 
 In our example, Mininet will be deployed within a docker container.
 
-To do so, you can use the following docker image: https://hub.docker.com/r/iwaseyusuke/mininet/ 
+To do so, you can use the following docker image: https://hub.docker.com/r/iwaseyusuke/mininet/ (**to be able to use xterm -terminal for hosts within virtual network- you will have to use the command line proposed by the creator of this repo, including *--privileged -e DISPLAY \ -v /tmp/.X11-unix:/tmp/.X11-unix \ -v /lib/modules:/lib/modules*)
 
 You will have to pull it and run it in a custom network (**as during the first lab you will have to create a bridge network**).
 
@@ -54,6 +54,8 @@ mininet> h1 ping h2 # shows how to ping from h1 to h2
 **Q.1** What is the default topology of mininet (how many openflow switches and how many hosts)?
 
 **Q.2** What are the pingall, iperf, xterm, ifconfig, dump, links and net commands in mininet used for?
+
+**To enable the use of xterm within the docker container, you will have to use the following command `xhost +si:localuser:root`**
 
 **Q.3** The switches of your mininet instance are configured as "learning switch" by default.
   * What is a learning switch? What is the result of pingall when the learning switch is used?
@@ -371,7 +373,6 @@ To verify that the changes you just made work:
   * In a fourth terminal, scan the TCP packets received by host 2: `sudo tcpdump -i s1-eth2`,
   * In Mininet, ping host 1 to host 2, check that the traffic is duplicated and that host 3 receives it as well.
 
--- KEEP THIS PART FOR THE END OF THE SESSION --
 #### 3.2.3 Setting Level 4 Rules ####
 
 **Q.28** What is the difference between level 3 and level 4 (OSI model)? What could be the interest of setting up rules at this level?
@@ -487,8 +488,6 @@ Now that the environment is in place, we can start using the Rest API to apply v
   - Check that they have been added to the switch rules,
   - With the commands provided, check that they work by trying to exchange between the different hosts. In the Ryu controller, what type of message can you observe when a packet is blocked?
   - Remove the rule corresponding to the prohibition of PING between h2 and h3, check that it is now possible for the two hosts to ping each other.
-
--- This section as section section 3.2.3 will require that you do something more: you will have to changed the docker image used for --
 
 #### 3.3.3 QoS ####
 
