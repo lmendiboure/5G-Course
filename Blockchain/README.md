@@ -60,6 +60,12 @@ Once attached, you can now check that everything is working properly by displayi
 At this point, if you wish, you can delete the second RPC node you've added. You won't need it for the rest of this tutorial.
 
 ### C. Managing users
+We're now going to create two additional users. To do this, you'll need to use the following command: personal.newAccount(). 
+
+**QC.1 What information do you need to specify at this stage?**
+
+
+
 
 ### 
 
