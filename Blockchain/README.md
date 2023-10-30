@@ -43,7 +43,7 @@ Once this is done, you should be able to test that your implementation works (ne
 
 **QB.2 What should you change in this line to return the list of eth accounts registered on this Blockchain network? How many accounts are there at the moment?** To answer this question you can use the following site: https://www.okx.com/okbc/docs/dev/api/okbc-api/json-rpc-api#eth-accounts
 
-**QB.3 Which line in Dockerfile.nodes appears to have created this user? In which of the files provided in this topic is this password stored?** You can retrieve this information from docker-compose.yaml
+**QB.3 Which line in Dockerfile.nodes appears to have created this user? In which of the files provided in this practical exercise is this password stored? What is the value of this password?** You can retrieve this information from docker-compose.yaml
 
 We're now going to discover a new way of connecting and interacting with the RPC node. 
 
@@ -60,13 +60,43 @@ Once attached, you can now check that everything is working properly by displayi
 At this point, if you wish, you can delete the second RPC node you've added. You won't need it for the rest of this tutorial.
 
 ### C. Managing users
+
 We're now going to create two additional users. To do this, you'll need to use the following command: personal.newAccount(). 
 
 **QC.1 What information do you need to specify at this stage?**
 
+Check that both accounts now appear in the list of accounts associated with this Blockchain network.
 
+**QC.2 Using the `eth.getBalance(eth.accounts[0])` function, you should be able to check the balance of individual users. What does it equal for user 1 and for user 2 and for user 3? How do you explain it?**
 
+**QC.3 What does the following function do? What do you think it is useful for?** `personal.unlockAccount(ACCOUNT, PASSWORD)`
 
-### 
+### D. Carrying out a first transaction 
+
+Now that our network is up and running, and we know how to connect and authenticate, we're going to make our first money transfer between two users. This is the basic function of a Blockchain network.
+
+These transactions will be stored in Blocks, the basic structure of a Blockchain-based system. 
+
+**QD.1 What is the current number of blocks in the blockchain? To find out, use the eth.blockNumber function.**
+
+The fact that this value is non-zero is mainly due to the fact that we're in a test network.
+
+**QD.2 The difficulty defined in the genesis.json file is very low. What does this mean in terms of block generation speed?**
+
+The advantage of this is that the first user to be created is automatically attached as an account to the miner, so he receives money with each new block generation. This will enable us to carry out our first transaction!
+
+To do this, you can use a line like this one: `eth.sendTransaction({from:EMITTER, to:RECEIVER, value:50000000})`
+
+Note that you can specify the address of a given account (EMITTER/RECEIVER) using the following line: `eth.accounts[1]`.
+
+**QD.3 Which line do you need to enter to transmit money from user 1 to user 2? What operation is required before doing so?**
+
+**QD.4 What information about a block can be retrieved using the eth.getBlock(NUMBER) function? What is the minor's address?**
+
+**QD.5 What information about a transaction can be retrieved using the eth.getTransaction(NUMBER) function? What does gas mean in Ethereum?**
+
+### E. Deploying a first Smart Contract
+
+**QE.1 What is a Smart Contract?**
 
 
