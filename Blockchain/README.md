@@ -11,14 +11,16 @@ It's worth noting that we'll be using a test environment, and therefore a privat
 
 **Note:** At the end of the session, please send me a short report answering the questions asked in this practical exercise (leo.mendiboure@univ-eiffel.fr).
 
-### A. few theoretical questions
-______
+### A. Deploying a Blockchain network
 
-**QA.1** What is the Blockchain? What is a transaction?
+The folder in which this ReadMe is located contains various files that can be used to launch a Blockchain network, including 1) two DockerFiles and 2) a Docker-Compose file.
 
-**QA.2** Give three examples of potential Blockchain applications.
+Use the command `docker-compose up -d` to launch the Blockchain network.
 
-**QA.3** What is Proof of Work? Briefly explain how it works.
+The Blockchain network you've just launched is made up of different types of node: 1) a BootNode, 2) a miner, 3) an RPC node and a user.
 
-### B. Step 0: Launching a Blockchain node
+**QA. Explain the role of the BootNode, Miner and RPC nodes in a Blockchain architecture.**
 
+By analyzing the docker-compose.yaml file, we can see that the minor and RPC nodes attach themselves to the BootNode when they are initiated, which seems logical given the role of this node. By analyzing this file, we can also see 1) that the RPC node exposes a given port and 2) that all nodes are launched on a given subnet.
+
+QB. Which port does the RPC node expose? What is the address range of the subnet?
