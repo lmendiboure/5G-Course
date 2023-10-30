@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tirelire Dapp</title>
+</head>
+<body>
+    <h1>Tirelire Dapp</h1>
+    <button onclick="donner()">Faire un Don</button>
+    <button onclick="retirer()">Retirer des Fonds</button>
+
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <script>
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+
+        // Adresse de votre contrat tirelire
+        var contractAddress = 'YOUR_CONTRACT_ADDRESS';
+
+        // Abstraction du contrat
+        var contractAbi = [
+            {
+                "constant": false,
+                "inputs": [],
+                "name": "donner",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [],
+                "name": "retirer",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            }
+        ];
+
+        var contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+        // Fonction pour faire un don
+        function donner() {
+            web3.eth.sendTransaction({
+                from: web3.eth.accounts[0],
+                to: contractAddress,
+                value: web3.utils.toWei('1', 'ether'), // Convert 1 Ether to Wei
+            }, function (error, transactionHash) {
+                if (!error) {
+                    alert("Don effectué avec succès. Transaction : " + transactionHash);
+                }
+            });
+        }
+
+        // Fonction pour retirer des fonds
+        function retirer() {
+            contract.methods.retirer().send({ from: web3.eth.accounts[0] }, function (error, transactionHash) {
+                if (!error) {
+                    alert("Fonds retirés avec succès. Transaction : " + transactionHash);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
