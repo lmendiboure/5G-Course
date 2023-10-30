@@ -31,3 +31,12 @@ By analyzing the docker-compose.yaml file, we can see that the minor and RPC nod
 
 We will now try to establish communication with this Blockchain network. To do this, we'll start by using JSON-RPC API endpoints (https://geth.ethereum.org/docs/interacting-with-geth/rpc).
 
+To do this, your first task will be to upgrade the docker-compose to add a second RPC node, associating its port 8045 with localhost port 8046.
+
+Once this is done, you should be able to test that your implementation works (new docker-compose up) by using the following command from localhost: `curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":67}' http://127.0.0.1:8545` 
+
+**QC.1 What does the result of this curl show you?**
+
+**QC.2 What should you change in this line to return the list of eth accounts registered on this Blockchain network?** To answer this question you can use the following site: https://www.okx.com/okbc/docs/dev/api/okbc-api/json-rpc-api#eth-accounts
+
+
