@@ -23,4 +23,11 @@ The Blockchain network you've just launched is made up of different types of nod
 
 By analyzing the docker-compose.yaml file, we can see that the minor and RPC nodes attach themselves to the BootNode when they are initiated, which seems logical given the role of this node. By analyzing this file, we can also see 1) that the RPC node exposes a given port and 2) that all nodes are launched on a given subnet.
 
-QB. Which port does the RPC node expose? What is the address range of the subnet?
+**QB. Which port does the RPC node expose? What is the address range of the subnet?**
+
+**QC. An analysis of this file also reveals that a NetworkID is specified. What is it?**
+
+### Communicating with a Blockchain network
+
+We will now try to establish communication with this Blockchain network. To do this, we'll start by using JSON-RPC API endpoints (https://geth.ethereum.org/docs/interacting-with-geth/rpc).
+
