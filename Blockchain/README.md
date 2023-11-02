@@ -200,9 +200,25 @@ In this section, we'll see whether or not it's possible to run a DApp locally on
 
 To do this, you'll need to add MetaMask to your browser and configure it to use our local network. You can follow this guide for example: https://dev.to/afozbek/how-to-add-custom-network-to-metamask-l1n 
 
-Next, you'll need to modify the dapp file in this folder by adding YOUR_CONTRACT_ADDRESS, which corresponds to the address of the piggy bank contract (you can get it from geth).
+However, adding the local Blockchain network won't be enough to interact with the local network: you'll also need to add at least one of the network's users. To do this, you'll need to use the user's private key (user 0, for example).
+
+With Geth, the user creation process (cf. previous sections) does not involve storing this private key, as this could pose security problems. Only the passphrase we've recorded in our environment is stored.
+
+You will therefore need to re-generate this private key. To do this, you'll need to connect to one of the three machines on your network (bootnode, miner or RPC) with the following command: ` docker exec -it bc-example_geth-rpc-endpoint_1 sh`.
+
+Once this has been done, you'll need to retrieve the file containing user 0's information, from which you can regenerate his private key. This file is located in: "~/.ethereum/keystore".
+
+Once you've retrieved this file, either directly on your machine by installing web3, or by installing it on the geth docker client, you'll be able to regenerate this key using the following command: `web3 account extract --keyfile FILE-YOU-RETRIEVED --password USER-PASSPHRASE`.
+
+All that's left is to import this account (in your local network) into MetaMask by importing a new user from a private key. At this point, the user's balance should appear. You'll also be able to view future transactions.
+
+This is all that needs to be done at the MetaMask level.
+
+Next, you'll need to modify the dapp file that we provided you by adding YOUR_CONTRACT_ADDRESS, which corresponds to the address of the piggy bank contract (you can get it from geth).
 
 Finally, you'll need to launch a Python (or other) server to share the contents of this html page. To do this, you could simply use the following command (in a folder in which you've put the DApp file): `python3 -m http.server 8000`.
+
+You can then open the browser of your choice and interact with the contract. Please note that you will need to CONNECT MetaMask to this page. To do this, simply click on your MetaMask extension, then on the three dots in the top right-hand corner, and you'll see "Connected Sites", where you can add this site.
 
 All that's left is to test whether or not the whole thing works!
 
