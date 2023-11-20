@@ -2,10 +2,6 @@
 
 The objective of this session is to understand what the main elements of the 5G architecture are. The idea is also to introduce the different protocols used at the Radio level. These elements will be discussed theoretically and then through a practical application.
 
-Some notes:
-  - Links for VMs download: https://ftp.science.ru.nl/cs/kkohls/2021_open5gs_vms/ (if not working, a Google Drive alternative could be proposed)
-  - Adress to send your report: *leo.mendiboure@univ-eiffel.fr*
-
 ## 1. Theoretical analysis
 
 The idea is to understand what the main components are and the main differences between 4G and 5G architectures.
@@ -117,69 +113,55 @@ The idea is to understand what the main components are and the main differences 
 
 ## 2. Let's use it: Open5GS and UERANSIM
 
-<div style="text-align:center">
-<figure>
-    <img src="https://miro.medium.com/max/1400/1*2RtDojauUBT4DNegQpadXA.png" style="float: left; margin-right: 10px;">
-    <figcaption>Figure: Experimental setup considered (Source: https://devopedia.org/5g-nr-channels)</figcaption>
-</figure>
-</div>
-
 
 **Q.21** What is Open5GS? What is UERANSIM? Why these tools need to be used together?
 
 
-### 2.1 Setting up virtual machines
+### 2.1 Setting up the environment
 
-Note: These virtual machines have been designed and shared by Katharina Kohls (https://kkohls.org/index.html)
+As in previous sessions, we'll be using docker-compose here. All the files are in the deployment folder and, in theory, using the command `docker-compose up -d` will launch the environment. Note that you won't have to touch to two docker containers: 1) mongodb container and 2) webui containers. Both of them are only there to provide functionalities.
 
-Password for virtual machines: *5g* ; Set Keyboard to french: *setxkbmap fr*
-
-Two machines will be used: 
-  - one for the Core Network (Open5GS)
-  - one for the RAN (UERANSIM)
-
-*Note:* Everytime you launch the open5gs VM, you will have to launch the following script `5gs_tun_setup.sh` on Desktop. This will be required to enable internet connection for 5G users. Note that: you will need to launch it with *sudo* 
-
-*Note:* `QWERTY` -> `AZERTY`: `setxkbmap fr` in a terminal
+**Q.211** Which containers are launched? What do you think is the role of each one?
 
 ### 2.2 Trying a first communication
 
-To simply summarize the operation of the two virtual machines available here, the open5gs machine will allow the launch of a 5G network core (and all the necessary core functions seen theoretically in the previous section!) and the UERANSIM virtual machine will allow to launch an access network (gNB + UE).
+Different configuration files are available and will need to be modified to deploy a complete network. Your main aim will be to indicate the IP address of the different elements (5G functions) within these config files. 
 
-Different configuration files are available. The ones we will need here are:
-  1. `open5gs/build/configs/sample.yaml` within the Core VM
-  2. `open5gs-gnb.yaml` and `open5gs-ue.yaml` within the RAN VM
+*Note : For the open5GS Core, you will have first to run `./tests/app/5gc` to generate the config file.*
+
+Three files will need to be modified:
+  1. `open5gs/build/configs/sample.yaml` within the Core
+  2. `open5gs-gnb.yaml` within the gnb (config folder)
+  3. and `open5gs-ue.yaml` within the ue (config colder)
   
 Before trying for the first time the deployment/running of your own 5G network, you will have to verify:
-  - The AMF NGAP IP within the config file of the Core Network: It must be equal to the IP of the Core Machine (`ifconfig`)
-  - The  `linkIp`, `ngapIp` and `gtpIp` within the RAN config file (gnb file): It must be equal to the IP adress of the RAN Machine (`ifconfig`)
-  - The `amfConfigs` IP within the RAN config file (gnb file): It must be equal to the IP of the Core Machine 
-  - The `gnbSearchList` IP within the RAN confif file (ue file): It must be equal to the IP of the RAN Machine
+  - The AMF NGAP IP + UPF GTPU within the config file of the Core Network: It must be equal to the IP of the Core container (`ip addr`)
+  - The  `linkIp`, `ngapIp` and `gtpIp` within the RAN config file (gnb file): It must be equal to the IP adress of the gnb container (`ip addr`)
+  - The `amfConfigs` IP within the RAN config file (gnb file): It must be equal to the IP of the Core container 
+  - The `gnbSearchList` IP within the RAN confif file (ue file): It must be equal to the IP of the gnb container
   
 Once these differents elements have been verified, you shoud be able to launch the whole 5G Network!
 
 To do so, within the Core Machine, you should launch the different functions using the following command:
 
 ```console
-$ sudo ./open5gs/build/tests/app/5gc
+$ ./open5gs/build/tests/app/5gc
 ```
 
-*Note that:* you could alternatively launch each Core function one by one in different terminals
+*Note that:* you could alternatively launch each Core function one by one in different terminals. All off them are within the `/open5gs/install/bin` folder.
 
-*Note that:* if you If you encounter problems when you restart the 5G Core: type the command `ps` and check if any 5G functions are not running. If so, stop them (`kill -9 ...`).
-
-Then, within the RAN Machine, you should be able to launch the gNb using the following command:
+Then, within the gnb container, you should be able to launch the gNb using the following command:
 
 ```console
 $ sudo ./UERANSIM/build/nr-gnb -c UERANSIM/config/open5gs-gnb.yaml
 ```
 If everythink works the following line should appear: `NG Setup procedure is successful`
 
-Within the Core Machine, you should also be able to see that a gNb is now connected.
+Within the Core container, you should also be able to see that a gNb is now connected.
 
 **Q21.** What is the role of the NG Setup procedure?
 
-Finally, you should be able to launch an UE within another terminal:
+Finally, you should be able to launch an UE within the ue container:
 
 ```console
 $ sudo ./UERANSIM/build/nr-ue -c UERANSIM/config/open5gs-ue.yaml
@@ -202,20 +184,12 @@ Once you get the identity of your UE (`imsi-...`) and your gNb, you should be ab
 
 **Q24.** Once you are connected to this CLI (one time for the gNb and one time for the UE), indicate which commands can be executed for each of these nodes (list of commands can be displayed using `commands` within the CLI)
 
-The CLI is only one of the apps offered by UERANSIM, another one is `./nr-binder` which can be used by the UE to access Internet using the deployed 5G Network.
-
-To do so, you could use the following command:
-
-`./nr-binder 10.45.0.3 ping google.com`
-
-Note that, nr-binder could also be used to execute scripts (bash, python for example) or Docker containers.
-
 
 ### 2.3 Managing users
 
 So far, we only launched a single UE already configured in the system. We will now try to see how to register new users within our core network.
 
-To verify that it is required, we will first create, within the RAN VM, a copy of the ue config file and modify the IMSI/supi (for example replacing the last 1 by a 2: 'imsi-........2').
+To verify that it is required, we will first create, within the RAN container, a copy of the ue config file and modify the IMSI/supi (for example replacing the last 1 by a 2: 'imsi-........2').
 
 **Q25.** If you try to launch a ue using this config file, what happens? How can you explain it?
 
@@ -223,11 +197,17 @@ We wil now try to register this user within the Core VM.
 
 To do so, we will use a new app: the WebUI.
 
-To do so, within the Core VM, go within the `open5gs/webui` folder and run `npm run dev`.
-
-Then, within a browser, access to `127.0.0.1:300` and connect using the `admin:1423` credentials.
+Within a browser, access to `127.0.0.1:9999` and connect using the `admin:1423` credentials.
 
 **Q.26** Add this second ue to the list of subscribers of your 5G Core and show that it worked using a screenshot (of this new user connecting to your core network).
+
+### 2.4 Towards a distributed network core
+
+We're now going to set up a distributed network core. The idea, for example, could be to deploy a UPF function in a separate core. This would be necessary, for example, in an edge computing scenario, where data is processed as close as possible to the user, and we don't want to have to send it up the network.
+
+Your objective will therefore be to add a new container. All other functions will be launched in the core container used until now. The UPF function will be launched in this independent container. All these elements will form a core to which the base station and users will be able to connect.
+
+**Q.** Show me how your new architecture works :)
 
 ### 2.4 Open questions
 
@@ -238,8 +218,5 @@ Then, within a browser, access to `127.0.0.1:300` and connect using the `admin:1
 **Q.28** In 5G Networks, gNb can be divided into two entities: CU and DU. What are each of them? What is the purpose of this separation?
 
 (potential source: https://www.5gworldpro.com/5g-knowledge/what-is-cu-and-du-in-5g.html)
-
-
-*Note:* To go further and to joinly use Docker and UERANSIM, you could see how it would be possible to launch Docker containers within your UE using the following link: https://medium.com/rahasak/5g-core-network-setup-with-open5gs-and-ueransim-cd0e77025fd7
 
 
