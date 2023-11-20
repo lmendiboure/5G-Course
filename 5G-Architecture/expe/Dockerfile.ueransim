@@ -1,0 +1,29 @@
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND noninteractive
+
+
+# Install necessary dependencies
+RUN apt-get update && \
+    apt-get install -y git build-essential g++ wget libsctp-dev iproute2 nano iputils-ping
+
+# Install CMake 3.21
+RUN wget -O cmake.sh https://github.com/Kitware/CMake/releases/download/v3.21.0/cmake-3.21.0-linux-x86_64.sh && \
+    chmod +x cmake.sh && \
+    ./cmake.sh --skip-license --prefix=/usr/local && \
+    rm cmake.sh
+
+# Clone the UERANSIM repository
+RUN git clone https://github.com/aligungr/UERANSIM.git /ueransim
+
+# Build UERANSIM
+WORKDIR /ueransim
+RUN mkdir build
+WORKDIR /ueransim/build
+RUN /usr/local/bin/cmake ../ && make
+
+# Expose necessary ports
+EXPOSE 5000/udp
+
+# Start UERANSIM
+#CMD ["./nr-ue", "--help"]

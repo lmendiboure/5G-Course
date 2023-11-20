@@ -1,0 +1,49 @@
+ARG dist=ubuntu
+ARG tag=latest
+FROM ${dist}:${tag}
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends \
+        python3-pip \
+        python3-setuptools \
+        python3-wheel \
+        ninja-build \
+        build-essential \
+        flex \
+        bison \
+        git \
+        cmake \
+        meson \
+        libsctp-dev \
+        libgnutls28-dev \
+        libgcrypt-dev \
+        libssl-dev \
+        libidn11-dev \
+        libmongoc-dev \
+        libbson-dev \
+        libyaml-dev \
+        libmicrohttpd-dev \
+        libcurl4-gnutls-dev \
+        libnghttp2-dev \
+        libtins-dev \
+        libtalloc-dev \
+        iproute2 \
+        ca-certificates \
+        netbase \
+        pkg-config && \
+    apt-get clean
+
+COPY webui /usr/src/open5gs/webui
+
+WORKDIR /usr/src/open5gs/webui
+RUN npm clean-install && \
+    npm run build
+
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
+RUN chmod +x /wait
+
+CMD /wait && npm run start
+
+EXPOSE 3000
