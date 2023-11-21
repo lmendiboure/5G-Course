@@ -209,7 +209,11 @@ Your objective will therefore be to add a new container. All other functions wil
 
 **Q.** Show me how your new architecture works :)
 
-### 2.4 Open questions
+### 2.5 Towards an automated deployment
+
+You'll now need to modify the DockerFile files to automate the entire container deployment procedure. We no longer wish to have to manually modify the IP information of the various elements. These should be updated automatically in the relevant configuration files, and the core, gnb and user should be launched automatically.
+
+### 2.6 Open questions
 
 **Q.27** Open5GS can support multiple slices (can be seen in the WebUI when you register users), what is Network Slicing? Also indicate which core functions are 1) common to all slices and their role and 2) which functions are specific to each of the slices?
 
