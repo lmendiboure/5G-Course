@@ -127,7 +127,7 @@ As in previous sessions, we'll be using docker-compose here. All the files are i
 
 Different configuration files are available and will need to be modified to deploy a complete network. Your main aim will be to indicate the IP address of the different elements (5G functions) within these config files. 
 
-*Note : For the open5GS Core, you will have first to run `./tests/app/5gc` to generate the config file.*
+*Note : For the open5GS Core, you will have first to run `./tests/app/5gc` to generate the config file. It will be located in the folder: ./config*
 
 Three files will need to be modified:
   1. `open5gs/build/configs/sample.yaml` within the Core
