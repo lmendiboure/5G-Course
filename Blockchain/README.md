@@ -47,11 +47,9 @@ Once this is done, you should be able to test that your implementation works (ne
 
 We're now going to discover a new way of connecting and interacting with the RPC node. 
 
-To do this, we're going to connect to the geth client, which is part of the deployed Docker network. As you can see from its docker file (`Dockerfile.user`), it has all the necessary tools: geth and solc in particular.
+To do this, we're going to connect to the geth client, which is part of the deployed Docker network. As you can see from its docker file (`Dockerfile.user`), it has all the necessary tools.
 
-The connection line is as follows:  `docker exec -it "CONTAINER_NAME" /bin/bash`. Using `docker ps` you should be able to retrieve the name of this container.
-
-Once connected, the idea now is to attach to the RPC node. To do this, simply enter the following line: `geth attach rpc:http://IP:port`.
+The connection line to attach to the RPC node is as follows:  `docker exec -it "CONTAINER_NAME" geth attach rpc:http://IP:port`. Using `docker ps` you should be able to retrieve the name of this container.
 
 **QB.4 What IP and port must be specified?**
 
